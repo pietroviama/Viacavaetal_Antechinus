@@ -1,0 +1,74 @@
+Version 6
+Stratovan Checkpoint (TM)
+
+[Specimen Information]
+Name: Cm2991, .obj
+ID: C:\Users\pietro\Desktop\Pietro\Projects\Viacavaetal_Antechinus\Data\3Dmodels\Astuartii\CM2991.obj
+Birthdate: 
+Sex: 
+
+[Specimen Study]
+StudyInstanceUID: 
+StudyID: 
+StudyDate: 
+StudyTime: 
+StudyDescription: 
+
+[Specimen Series]
+SeriesInstanceUID: 
+SeriesNumber: 
+SeriesDate: 
+SeriesTime: 
+SeriesModality: 
+SeriesProtocol: 
+SeriesPart: 
+SeriesDescription: 
+
+[Specimen File(s)]
+NumberOfFolders: 1
+Folder: C:\Users\pietro\Desktop\Pietro\Projects\Viacavaetal_Antechinus\Data\3Dmodels\Astuartii\
+Files: "CM2991.obj" 
+
+[Surface Information]
+NumberOfSurfaces: 1
+0: -1 "-1" 200 200 200
+
+[Templates]
+NumberOfTemplates: 0
+
+[Landmarks]
+NumberOfPoints: 0
+Units: mm
+
+[SinglePoints]
+NumberOfSinglePoints: 0
+
+[Curves]
+NumberOfCurves: 0
+
+[Patches]
+NumberOfPatches: 0
+
+[Joints]
+NumberOfJoints: 0
+
+[Lengths]
+NumberOfLengths: 0
+
+[Lines]
+NumberOfLines: 0
+
+[Angles]
+NumberOfAngles: 0
+
+[Planes]
+NumberOfPlanes: 0
+
+
+[Contrast and Brightness]
+Width: -1
+Level: -1
+
+[Landmark Size]
+Size: 6
+
