@@ -51,7 +51,7 @@ australiamap_data <-
   australia_clean+
   geom_point(data=antechinusdata, 
              aes(x=Longitude, y=Latitude, fill =Species)
-             ,pch=21, size=7, alpha=I(0.7))+
+             ,pch=21, size=4, alpha=I(0.7))+
   theme(legend.position = c(1,0.8), legend.justification = c(0,1), legend.key = element_blank(), legend.title = element_text(size = 20),
         legend.text = element_text(size = 18))+
   labs(fill="Species")
@@ -61,4 +61,29 @@ australiamap_data
 
 #######################################################################################
 #######################################################################################
+
+library(ggplot2)
+library(ggmap)
+library(maps)
+
+antechinusdata1 <- antechinusdata[-c(184,186),]
+
+range(antechinusdata$Longitude, na.rm = TRUE, finite = TRUE)
+range(antechinusdata$Latitude, na.rm = TRUE, finite = TRUE)
+
+base = get_map(location=c(145,-37,155,-25), zoom=7, maptype="terrain-background")
+
+map1 = ggmap(base)
+map1
+
+map2 <- 
+  map1+
+  geom_point(data=antechinusdata1, 
+             aes(x=Longitude, y=Latitude, fill = Species, shape = Species), color="white", cex=4) +
+  scale_fill_manual(values = c("red", "blue"), labels=c("stuartii", "subtropicus"), name=NULL) +
+  scale_shape_manual(values = c(24,22), labels=c("stuartii", "subtropicus"), name=NULL) + # define shape/color scales
+  labs(x="Latitude", y="Longitude", title="Antechinus distribution map") + # label the axes
+  theme_bw() + theme(legend.position="bottom", axis.text = element_text(size = rel(0.75)), legend.key = element_rect(colour = "white"), axis.text.x = element_text(angle=45, vjust=0.5)) # tweak the plot's appearance and legend position
+
+map2
 
