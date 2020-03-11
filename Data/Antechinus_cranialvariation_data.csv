@@ -135,7 +135,7 @@ subtropicus,QM,JM210,Female,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Brait
 stuartii,QM,JM21268,Male,Adult,Nightcap Nat. Park NSW.,-28.607,153.377,289,T. Y. Mutton,26/08/2012,ok,ok,,,,don’t know - thomas may or heather - but likely 28 36 16 S 153 22 44 E (based on thomas m thesis). #NC4
 stuartii,QM,JM21269,Male,Adult,Mt. Warning NSW.,-28.398,153.285,491,T. Y. Mutton,26/08/2012,ok,ok,,,,don’t know - thomas may or heather - but likely 28 23 58 S 153 16 51 E (based on thomas m thesis). MW3
 stuartii,QM,JM21271,Female,Adult,Natural Bridge SEQ.,-28.233,153.25,741,T. Y. Mutton,25/08/2012,ok,ok,,,,#SP10
-subtropicus,QM,JM213,Male,Adult,Mt Glorious,-27.333,152.767,572,D. Braithwaite,29/05/1971,ok,ok,ok,,,template?
+subtropicus,QM,JM213,Male,Adult,Mt Glorious,-27.333,152.767,572,D. Braithwaite,29/05/1971,ok,ok,ok,ok,,template?
 stuartii,QM,JM21357,Male,Adult,"Main Range Nat. Park Goomburra, Qld. SEQ. Lat -27.987669 Long 152.359866",-27.988,152.36,936,Penn Lloyd & L. Popple,26/05/2017,ok,ok,,,,Elevation: 936 m. Upper Dalrymple Creek Valley.
 stuartii,QM,JM21530,Male,Adult,"Private Property - New England NP, near the Chalet, ne NSW, 30°29'50""S 152°23'56""E (EH31)",-30.497,152.399,1393,"E. Mason, E. Gray",15/05/2014,ok,ok,,,,EH31
 stuartii,QM,JM21536,Female,Adult,"Armidale - Kempsey Rd New England NP, ne NSW, 30°37'55""S 152°11'50""E (EH16)",-30.632,152.197,941,"E. Mason, E. Gray",15/05/2014,ok,ok,,,,EH16
@@ -159,7 +159,7 @@ subtropicus,QM,JM99,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwa
 stuartii,CSIRO,M03541,Male,Adult,"Currambene State Forest, 10 km S of Nowra NSW / Jervis Bay",-34.9833,150.7333,20,I. Mason,26/02/1988,ok,ok,,,,
 stuartii,AM,M10880,Female,Adult,Newnes Plateau NE of Lithgow NSW,-33.367,150.217,746,NA,1/07/1978,ok,ok,,,,
 stuartii,AM,M10884,Female,Adult,Newnes Plateau NE of Lithgow NSW,-33.383,150.167,564,NA,1/07/1978,ok,ok,,,,
-stuartii,AM,M10967,Female,Adult,"Mt Cameron , NE of Lithgow, NSW",-33.267,150.333,865,NA,28/08/1978,ok,ok,ok,,,
+stuartii,AM,M10967,Female,Adult,"Mt Cameron , NE of Lithgow, NSW",-33.267,150.333,865,NA,28/08/1978,ok,ok,ok,ok,,
 stuartii,AM,M10973,Female,Adult,"Mt Cameron , NE of Lithgow, NSW",-33.283,150.333,865,NA,28/08/1978,ok,ok,,,,P3 partially erupted.
 stuartii,AM,M11665,Female,Adult,Billimbra State For. Nr. Grafton NSW,-29.217,152.417,844,NA,5/07/1980,ok,ok,,,,Left P3 partially erupted.
 stuartii,AM,M11666,Female,Adult,Billimbra State For. Nr. Grafton NSW,-29.217,152.417,844,NA,5/07/1980,ok,ok,,,,
@@ -169,7 +169,7 @@ subtropicus,AM,M22785,Female,Adult,"Sheepstation Creek, 40 kms West of Murwillum
 stuartii,CSIRO,M24203,Female,Subadult,NSW: Gibbergunyah Bd Whian Whian SF Tweed Valley,-28.565,153.3364,524,P C Catling / R Burt,3/05/1995,ok,ok,,,,
 stuartii,CSIRO,M24207,Male,Adult,"NSW: Gibbergunyah Road, Whian Whian State Forest, Tweed Valley",-28.5667,153.3356,524,P C Catling / R Burt,5/05/1995,ok,ok,,,,
 subtropicus,AM,M24905,Female,Adult,Mt Nullum NSW,-28.833,153.433,114,NA,15/06/1990,ok,ok,,,,Location not clear
-subtropicus,AM,M29961,Male,Adult,"Rummey Pk, Whian Whian State Forest NSW",-28.633,153.317,172,NA,16/08/1992,ok,ok,ok,,,
+subtropicus,AM,M29961,Male,Adult,"Rummey Pk, Whian Whian State Forest NSW",-28.633,153.317,172,NA,16/08/1992,ok,ok,ok,ok,,
 stuartii,AM,M3174,Male,Adult,"Booloombayt, Myall Lakes. N.S.W.",-32.5,152.3,8,M. Burrell,3/09/1922,ok,ok,,,,
 stuartii,AM,M3179,Male,Adult,"Booloombayt, Myall Lakes. N.S.W.",-32.5,152.3,8,NA,3/09/1922,ok,ok,,,,
 stuartii,AM,M3183,Female,Adult,"Booloombayt, Myall Lakes. N.S.W.",-32.5,152.3,8,NA,4/09/1922,ok,ok,,,,
@@ -179,7 +179,7 @@ stuartii,AM,M6946,Female,Adult,Mt. Irvine via Bell N.S.W.,-33.483,150.467,639,NA
 stuartii,AM,M9730,Female,Adult,"Bungwahl, Myall Lakes N.S.W. ",-32.4,152.433,13,NA,2/10/1972,ok,ok,,,,
 stuartii,QM,MR3,Male,Adult,"Main Range NP, Gambubal Section",-28.226,152.427,973,Ian Gynther,10/05/2008,ok,ok,,,,N19244.
 stuartii,QM,MRG3,Male,Adult,"Main Range NP Goomburra 27°58'50""S 152°20'49""E",-27.981,152.347,710,T. Y. Mutton,27/08/2012,ok,ok,,,,710 m Alt.
-stuartii,QM,MRG4,Male,Adult,"Main Range NP Goomburra 27°58'50""S 152°20'49""E",-27.981,152.347,710,T. Y. Mutton,27/08/2012,ok,ok,ok,,,710 m Alt.
+stuartii,QM,MRG4,Male,Adult,"Main Range NP Goomburra 27°58'50""S 152°20'49""E",-27.981,152.347,710,T. Y. Mutton,27/08/2012,ok,ok,ok,ok,,710 m Alt.
 subtropicus,QM,MW1,Female,Adult,Lot 2 Mulvena Rd Lamook 33 km SW Mt Warning NSW,-28.668,153.101,240,Wes Hall,1/10/2011,ok,ok,,,,
 stuartii,QM,MWA1,Male,Adult,Main Range National Park,-28.083,152.417,758,Moss Well,NA,ok,ok,,,,
 stuartii,QM,MWA2,Female,Unknown,Main Range National Park,-28.083,152.417,758,Moss Well,_,ok,ok,,,,
