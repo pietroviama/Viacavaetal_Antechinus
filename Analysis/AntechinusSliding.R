@@ -89,21 +89,25 @@ spheres3d(template.p[1:144,],radius=0.1,col=3) #patches
 
 #### 3rd step, create the template
 
-fixi<-pilio.new[1:40,]
-patchi<-pilio.new[41:522,]
-rownames(patchi)<-c(1:482)
+fixed<-template.p[145:227,]
+patch<-template.p[1:144,]
+#rownames(patch)<-c(1:482)
 
 
-template.1<-createAtlas(pilio,landmarks=fixi,patch=patchi,
+template.1<-createAtlas(subtropicus.holo,landmarks=fixed,patch=patch,
                         
-         patchCurves=list(c(1:10),c(11:20),c(21:27),c(28:30),c(31:35),c(36:40),c(41:43),c(44:50),c(51:55),
-                          c(56:58),c(59:63),c(64:68),c(69:71),c(72:76),
-                                         
-                            c(77:140),c(141:204),c(205:268),c(269:331),c(332:356),
-                  c(357:381),c(382:406),c(407:431),c(432:447),c(448:463),c(464:472),c(473:482)))
+         patchCurves=list(as.integer(c(228:235),c(236:238),c(239:241),c(242:244),c(245:246),c(247:248),c(249:253),c(254:258),c(259:263),
+                          c(264),c(265:269),c(270),c(271:274),c(275:278),
+                            c(279:281),c(282:284),c(285:287),c(288:290),c(291:293),
+                  c(294:296),c(297:298),c(299:300),c(301:304),c(305:308),c(309:310),c(311:312),
+                  c(313),c(314),c(315),c(316),c(317),c(318),c(319),
+                  c(320:324),c(325),c(326:329),c(330:333),c(334:335),c(336:337),c(338:342),
+                  c(343:347),c(348:349),c(350:351),c(352:353),c(354:356),c(357:359),c(360:361),c(362:364),c(365:367),
+                  c(368:370),c(371:373),c(374:376),c(377:379),c(380:382),c(383:385),c(386),c(387:389),c(390:392),
+                  c(393:396),c(397:400),c(401:403),c(404:411),c(412))))
 
 
-plotAtlas(template.1)
+plotAtlas(template.1,pt.size=1,legend=FALSE,render="s")
 
 
 ### 4th step apply the template to all the other specimens, remember to play with inflate/deflate
