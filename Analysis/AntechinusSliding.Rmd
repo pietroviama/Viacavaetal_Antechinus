@@ -10,7 +10,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 
-knitr::opts_knit$set(root.dir = 'C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data', echo = TRUE)
+#knitr::opts_knit$set(root.dir = '../Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data', echo = TRUE)
 
 
 
@@ -228,7 +228,7 @@ Atlas<-createAtlas(subtropicus.holo,landmarks=fixed,patch=patch, patchCurves = c
 cols<-c("black","red","green","blue")
 
 plotAtlas(Atlas, pt.size=0.2, point = "s", legend = TRUE, cols = cols)
-
+text3d(Ants[,,7], texts = c(1:82), asp=FALSE, cex=3, col="blue", pos = 3 )
 
 
 
@@ -257,24 +257,22 @@ Plylist <- sub(".ply", "", list.files(Folder))
 #extract the coordinates that correspond to the ply files - note the dimnames and the ply file names need to be identical
 
 match(Plylist, dimnames(Ants)[[3]])
+
+Plylist==dimnames(Ants)[[3]]
+
 data_reorder<-Ants[, , match(Plylist, dimnames(Ants)[[3]])]
 
 
 names_reorder<-dimnames(data_reorder)[[3]]
 match(names_reorder, Plylist)
 
+names_reorder== Plylist
 
+#Check if coords and specimesn still correspond - all good
+Check_plotspec <- read.ply("../Data/3Dmodels/AntechinusTest/CM3713.ply")
+plotspec(Check_plotspec, data_reorder[,,2])
 
-
-
-
-
-
-
-
-
-
-
+dimnames(data_reorder)[[3]]
 
 lmplacement<-placePatch(Atlas,data_reorder,path="../Data/3Dmodels/AntechinusTest/", inflate=1) #ray=TRUE for projection along surface normals instead of closest point
 
