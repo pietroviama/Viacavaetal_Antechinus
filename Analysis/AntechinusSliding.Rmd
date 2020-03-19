@@ -20,16 +20,19 @@ library(Rvcg)
 library(geomorph)
 library(abind)
 
-setwd('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data')
+#this is not needed in RMD
+#setwd('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data')
 ```
 
 ```{r load data}
 
 ## import meshes and points cloud
 
+# SEE HOW I CHANGED THE PATHS TO BE ../path/path/file?  ANY FILES IN OTHER FOLDERS NEED TO BE NAVIGATED TO LIKE THIS. AND YOU COULD NOT KNOW THIS. I DIDN'T SEE IT EITHER. 
 
-subtropicus.holo<-file2mesh('3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
-subtropicus.p<-(read.csv('Templatecoords.csv', header = F))
+
+subtropicus.holo<-file2mesh('../Data/3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
+subtropicus.p<-(read.csv('../Data/Templatecoords.csv', header = F))
 dim(subtropicus.p)
 rownames(subtropicus.p)<-subtropicus.p$V1
 
@@ -53,7 +56,7 @@ spheres3d(subtropicus.p1[268:412,],radius=0.1,col=3) #patches 145
 
 text3d(subtropicus.p1, texts = c(1:412), asp=FALSE, cex=1, col="blue", pos = 3 )
 
-LMcoords <- t(read.csv('Antechinus_cranialvariation_data.csv', header = T, row.names = 1))
+LMcoords <- t(read.csv('../Data/Antechinus_cranialvariation_data.csv', header = T, row.names = 1))
 dim(LMcoords)
 Ants <- arrayspecs(LMcoords, 82, 3)
 dim(Ants)
