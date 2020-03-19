@@ -20,15 +20,12 @@ library(Rvcg)
 library(geomorph)
 library(abind)
 
-#this is not needed in RMD
-#setwd('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data')
+
 ```
 
 ```{r load data}
 
 ## import meshes and points cloud
-
-# SEE HOW I CHANGED THE PATHS TO BE ../path/path/file?  ANY FILES IN OTHER FOLDERS NEED TO BE NAVIGATED TO LIKE THIS. AND YOU COULD NOT KNOW THIS. I DIDN'T SEE IT EITHER. 
 
 
 subtropicus.holo<-file2mesh('../Data/3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
@@ -225,17 +222,15 @@ curves<-list(SC1,SC2,SC3,SC4,SC5,SC6,SC7,SC8,SC9,SC10,SC11,SC12,SC13,SC14,SC15,S
 
 #Atlas plot and original plot to check if the landmark numbers remain in the same order 
 
-#Atlas<-createAtlas(subtropicus.holo,landmarks=fixed,patch=patch, patchCurves = curves1)
-Atlas<-createAtlas(subtropicus.holo,landmarks=fixed,patch=patch, patchCurves = list(as.integer(c(320:327)))) 
 
 Atlas<-createAtlas(subtropicus.holo,landmarks=fixed,patch=patch, patchCurves = curves)
 
+cols<-c("black","red","green","blue")
+
+plotAtlas(Atlas, pt.size=0.2, point = "s", legend = TRUE, cols = cols)
 
 
-plotAtlas(Atlas, pt.size=0.2, point = "s", legend = TRUE, cols = "black", "red", "green", "blue")
 
-
-col<-colours("black","red","green","blue")
 
 #This places the numbers of the landmarks as per the Atlas
 #text3d(subtropicus.p1, texts = c(1:412), asp=FALSE, cex=2, col="blue", pos = 3 )
@@ -254,7 +249,7 @@ col<-colours("black","red","green","blue")
 
 ```{r semilandmark placement}
 #The below is code to take out a small subsample of the whole 3d array
-Folder <- "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusTest/"
+Folder <- "../Data/3Dmodels/AntechinusTest/"
 
 #Navigate to folder with the subsample of ply files
 Plylist <- sub(".ply", "", list.files(Folder))
@@ -281,7 +276,7 @@ match(names_reorder, Plylist)
 
 
 
-lmplacement<-placePatch(Atlas,data_reorder,path=Folder, inflate=1) #ray=TRUE for projection along surface normals instead of closest point
+lmplacement<-placePatch(Atlas,data_reorder,path="../Data/3Dmodels/AntechinusTest/", inflate=1) #ray=TRUE for projection along surface normals instead of closest point
 
 checkLM(lmplacement, path = Folder, atlas=Atlas)
 
