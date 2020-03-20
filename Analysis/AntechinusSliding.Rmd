@@ -39,7 +39,7 @@ dim(subtropicus.p1) #412 landmarks, 3 dimensions
 template.pf <- subtropicus.p1[1:82,]
 template.pc <- subtropicus.p1[83:267,]
 template.pp <- subtropicus.p1[268:412,]
-template.p <- rbind(template.pf, template.pp, template.pc)
+template.p <- rbind(template.pf, template.pc, template.pp)
 
 #plot landmarks on mesh to check if they correspond well
 shade3d(subtropicus.holo,col = 8)
@@ -132,11 +132,12 @@ SC62<-as.integer(c(175:182))
 SC63<-as.integer(c(183:185))
 
 
+
 #List curves
 curves<-list(SC1,SC2,SC3,SC4,SC5,SC6,SC7,SC8,SC9,SC10,SC11,SC12,SC13,SC14,SC15,SC16,SC17,SC18,SC19,SC20,         SC21,SC22,SC23,SC24,SC25,SC26,SC27,SC28,SC29,SC30,SC31,SC32,SC33,SC34,SC35,SC36,SC37,SC38,SC39,SC40,SC41,SC42,SC43,SC44,SC45,SC46,SC47,SC48,SC49,SC50,SC51,SC52,SC53,SC54,SC55,SC56,SC57,SC58,SC59,SC60,SC61,SC62,SC63)
 
 #Atlas creation
-Atlas<-createAtlas(subtropicus.holo,landmarks = fixed,patch = patch, patchCurves = curves)
+Atlas<-createAtlas(subtropicus.holo,landmarks = fixed, patch = patch, patchCurves = curves)
 
 #Atlas plot 
 cols<-c("black","red","green","blue")
