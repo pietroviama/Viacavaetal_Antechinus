@@ -9,7 +9,7 @@ stuartii,CSIRO,CM11764,Female,Adult,NSW: Manaro and South Coast district: 7.5 km
 stuartii,CSIRO,CM12785,NA,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,,,,
 stuartii,CSIRO,CM12786,NA,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,,,,
 stuartii,CSIRO,CM15246,Male,Adult,Ryan's Swamp Jervis Bay N. SW.,-35.1667,150.6667,0,KB,21/03/1975,ok,ok,,,,Dwell Ti tree Bracker and grasses
-stuartii,CSIRO,CM16483,Female,Adult,NSW. 4km. S. of Goulburn on Rd. to Braidwood,-34.7917,148.7,542,H. Gibson,16/04/1992,ok,ok,ok,,,
+stuartii,CSIRO,CM16483,Female,Adult,NSW. 4km. S. of Goulburn on Rd. to Braidwood,-34.7917,148.7,542,H. Gibson,16/04/1992,ok,ok,ok,ok,,
 stuartii,CSIRO,CM16495,Male,Adult,"NSW: Golspie, NW of Crookwell",-34.3,149.6833,888,A. Gibson,1/01/1992,ok,ok,,,,Hab: Country town buildings
 stuartii,CSIRO,CM21,Male,Adult,NSW: Colo Vale,-34.4,150.4833,640,B. J. Marlow,NA,ok,ok,,,,
 stuartii,CSIRO,CM2748,Female,Adult,Salamander Bay Port Stephens NSW,-32.7333,152.0833,1,K. Keith,8/02/1968,ok,ok,,,,
@@ -29,7 +29,7 @@ stuartii,CSIRO,CM3660,Female,SubAdult,Tianjara Falls. Via Sassafras N.S.W.,-35.1
 stuartii,CSIRO,CM3661,Male,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,,,,
 stuartii,CSIRO,CM3662,Female,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,,,,
 stuartii,CSIRO,CM3663,Female,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,,,,
-stuartii,CSIRO,CM3713,Male,Adult,Mebbin State Forest Via Murwillumbah N.E. N.S.W.,-28.4667,153.1667,195,K. Keith,8/03/1970,ok,ok,ok,,,
+stuartii,CSIRO,CM3713,Male,Adult,Mebbin State Forest Via Murwillumbah N.E. N.S.W.,-28.4667,153.1667,195,K. Keith,8/03/1970,ok,ok,ok,ok,,
 stuartii,CSIRO,CM3792,Female,Juvenile? ,Redlands via Ebor N.S.W.,-30.3667,152.45,1275,K. Keith,20/01/1971,ok,ok,,,,Wet sclerophyll. P3 not erupted.
 stuartii,CSIRO,CM3793,Male,Juvenile? ,"Redlands' Via Ebor, NSW",-30.3667,152.45,1275,K. Keith,20/01/1971,ok,ok,,,,Wet sclerophyll. P3 not erupted.
 stuartii,CSIRO,CM3795,Male,SubAdult,"Redlands' via Ebor, NSW",-30.3667,152.45,1275,K. Keith,21/01/1971,ok,ok,,,,Wet sclerophyll. P3 not fully erupted.
@@ -39,7 +39,7 @@ stuartii,CSIRO,CM6510,Female,Adult,Wog Wog Rd. Yadborough River N.S.W.,-35.3333,
 stuartii,CSIRO,CM6523,Female,Adult,N.E. Corner Army Sir strip Mt Tianjarra N.S.W.,-35.1167,150.35,482,M. Brooker,5/06/1974,ok,ok,,,,Tall eucalypts + 5' tall thick shrub
 stuartii,CSIRO,CM6539,Female,Adult,Top of escarpment Mt Tianjara N.S.W.,-35.1833,150.3,643,M. Brooker,18/07/1974,ok,ok,,,,Among rocks.
 stuartii,CSIRO,CM6540,Male,Adult,East side cliffs Mt. Tianjara N.S.W.,-35.1833,150.3,643,J. Waterhouse,18/07/1974,ok,ok,,,,Logged rainforest.
-stuartii,CSIRO,CM6541,Female,Adult,Top of escarpment West side Mt Tianjara N.S.W.,-35.1833,150.3,643,M. Brooker,17/07/1974,ok,ok,ok,,,Among rocks.
+stuartii,CSIRO,CM6541,Female,Adult,Top of escarpment West side Mt Tianjara N.S.W.,-35.1833,150.3,643,M. Brooker,17/07/1974,ok,ok,ok,ok,,Among rocks.
 stuartii,CSIRO,CM6565,Female,Juvenile? ,Land use research site 691 Intersection of caves Rd. and Tumblbar Rd Brooman N.S.W.,-35.45,150.2667,102,J. Waterhouse / M. Jones,15/11/1974,ok,ok,,,,P3 not fully erupted.
 stuartii,CSIRO,CM674,Male,SubAdult,Mount Glorious S.E Qld,-27.3333,152.7667,572,R. Rick,1/03/1964,ok,ok,,,,P3 partially erupted.
 stuartii,CSIRO,CM675,Female,SubAdult,Mount Glorious S.E Qld,-27.3333,152.7667,572,R. Rick,1/03/1964,ok,ok,,,,P3 partially erupted.
@@ -69,10 +69,10 @@ subtropicus,QM,J16535,Male,Adult,Mt Glorious (rainforest),-27.333,152.767,572,T.
 subtropicus,QM,J16543,Male,Adult,Mt Glorious SEQ,-27.333,152.767,572,T. Tebble / J. Covacevich,14/06/1968,ok,ok,,,,template? Q. M. Workshop 4862
 subtropicus,QM,J17400,Male,Adult,Warwick district,-28.217,152.033,467,T. Kirkpatrick,2/07/1969,ok,ok,,,,Q. M. Workshop 5140. J. Martin no. 2.
 subtropicus,QM,J17401,Male,Adult,Warwick district,-28.217,152.033,467,T. Kirkpatrick,2/07/1969,ok,ok,,,,Q. M. Workshop 5142. JMartin no 4. (D.P.I.)
-stuartii,QM,J17402,Female,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,,subtropicus?,Q. M. Workshop 5143. J. M. no. 5.
+stuartii,QM,J17402,Female,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,ok,subtropicus?,Q. M. Workshop 5143. J. M. no. 5.
 subtropicus,QM,J17403,Female,Adult,Warwick district SEQ,-28.217,152.033,467,T. Kirkpatrick,2/07/1969,ok,ok,,,,Q. M. Workshop 5144. Jm. No. 6
 stuartii,QM,J17406,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,,,subtropicus?,Q. M. Workshop 5141. J. Martin no. 3.
-subtropicus,QM,J17407,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,,,,holotype specimen. 
+subtropicus,QM,J17407,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,,,holotype specimen. 
 subtropicus,QM,J17410,Male,Adult,Mt Glorious (Parish of Dundas),-27.333,152.767,572,J. Covacevich / T. Tebble,12/06/1968,ok,ok,,,,Q. M. Workshop 4847
 subtropicus,QM,J20265,Male,Adult,Tallebudgera Ck Burleigh SEQ,-28.1,153.45,6,D. H. Fleay,6/07/1970,ok,ok,,,,Q. M. Workshop no 5610
 stuartii,QM,J3716,Male,Adult,Mt Tambourine SEQ,-27.917,153.167,517,T. Burston,6/08/1922,ok,ok,,,subtropicus?,Skin in old collection.
@@ -119,7 +119,7 @@ subtropicus,QM,JM168,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithw
 subtropicus,QM,JM170,Female,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,29/09/1971,ok,ok,,,,Unknown?
 stuartii,QM,JM18590,Male,Adult,"Lamington Nat. Park, Green Mtn Nat. Park office",-28.23,153.135,828,Chris Burwell,11/04/2007,ok,ok,,,,qm or bust - if not just use the lat long adjacent to office at green mtn as guesstimate
 subtropicus,QM,JM187,Female,Adult,"Mt Glorious 27�20'S, 152�46'E",-27.333,152.767,572,R. Braithwaite,26/03/1972,ok,ok,,,,
-subtropicus,QM,JM188,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Braithwaite,26/03/1972,ok,ok,ok,,,
+subtropicus,QM,JM188,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Braithwaite,26/03/1972,ok,ok,ok,ok,,
 subtropicus,QM,JM1912,Female,Adult,Mt Glorious Brisbane SEQ,-27.333,152.767,572,D. Joffe,30/07/1976,ok,ok,,,,Bled for serum. Field # MTGl
 subtropicus,QM,JM1913,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,D. Joffe,30/07/1976,ok,ok,,,,Bled for serum. Field # MtGl
 subtropicus,QM,JM19746,Male,Adult,"Harland Road, off Mt Glorious Rd, SEQ",-27.349,152.779,423,Baker & Mutton,1/09/2011,ok,ok,,,,
@@ -129,7 +129,7 @@ subtropicus,QM,JM19751,Male,Adult,"Mt Glorious Rd, Mt Glorious SEQ",-27.329,152.
 stuartii,QM,JM19756,Male,Adult,"Gambubal section Main Range Nat. Park SEQ 28�13'38.7""S 152�25'32.6""E",-28.227,152.426,973,Ian Gynther,10/05/2008,ok,ok,,,,Originally mistakenly classified A. subtropicus. Genetically tested. Thomas genetic No. MR2. +/- 300m. AGD84. Field no: N14243.
 stuartii,QM,JM19758,Female,Adult,"Lot 2, Mulvena Rd Larnook via Kyogle NSW",-28.668,153.101,240,Wes Hall,29/04/2012,ok,ok,,,,
 subtropicus,QM,JM200,Female,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,3/10/1971,ok,ok,,,,
-subtropicus,QM,JM205,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Braithwaite,28/10/1971,ok,ok,ok,,,
+subtropicus,QM,JM205,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Braithwaite,28/10/1971,ok,ok,ok,ok,,
 stuartii,QM,JM20761,Male,Unknown,"Main Range NP office, Cunningham's Gap, SEQ, 28 03 44 S 152 22 02 E",-28.062,152.367,674,R. Hobson,8/05/2012,ok,ok,,,,CG2. N19465.
 subtropicus,QM,JM210,Female,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,25/09/1971,ok,ok,,,,
 stuartii,QM,JM21268,Male,Adult,Nightcap Nat. Park NSW.,-28.607,153.377,289,T. Y. Mutton,26/08/2012,ok,ok,,,,don�t know - thomas may or heather - but likely 28 36 16 S 153 22 44 E (based on thomas m thesis). #NC4
@@ -139,7 +139,7 @@ subtropicus,QM,JM213,Male,Adult,Mt Glorious,-27.333,152.767,572,D. Braithwaite,2
 stuartii,QM,JM21357,Male,Adult,"Main Range Nat. Park Goomburra, Qld. SEQ. Lat -27.987669 Long 152.359866",-27.988,152.36,936,Penn Lloyd & L. Popple,26/05/2017,ok,ok,,,,Elevation: 936 m. Upper Dalrymple Creek Valley.
 stuartii,QM,JM21530,Male,Adult,"Private Property - New England NP, near the Chalet, ne NSW, 30�29'50""S 152�23'56""E (EH31)",-30.497,152.399,1393,"E. Mason, E. Gray",15/05/2014,ok,ok,,,,EH31
 stuartii,QM,JM21536,Female,Adult,"Armidale - Kempsey Rd New England NP, ne NSW, 30�37'55""S 152�11'50""E (EH16)",-30.632,152.197,941,"E. Mason, E. Gray",15/05/2014,ok,ok,,,,EH16
-subtropicus,QM,JM2205,Female,Adult,"Mt Glorious 27�20'S, 152�46'E",-27.333,152.767,572,S. Van Dyck,2/09/1976,ok,ok,ok,,,MtGl
+subtropicus,QM,JM2205,Female,Adult,"Mt Glorious 27�20'S, 152�46'E",-27.333,152.767,572,S. Van Dyck,2/09/1976,ok,ok,ok,ok,,MtGl
 subtropicus,QM,JM24,Male,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Braithwaite,25/06/1972,ok,ok,,,,
 subtropicus,QM,JM2935,Female,Adult,Brindabellas,,,,C. Dickman,_,ok,ok,,,,"qm or bust - but this will be an agilis!! If locality is correct, it should be omitted from your analysis"
 subtropicus,QM,JM37,Female,Adult,Mt Glorious,-27.333,152.767,572,R. Braithwaite,20/09/1971,ok,ok,,,,
@@ -149,7 +149,7 @@ subtropicus,QM,JM47,Female,Adult,Mt Glorious Grid SEQ,-27.333,152.767,572,R. Bra
 subtropicus,QM,JM86,Female,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/06/1971,ok,ok,,,,
 subtropicus,QM,JM88,Unknown,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/06/1971,ok,ok,,,,
 subtropicus,QM,JM89,Female,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/06/1971,ok,ok,,,,
-subtropicus,QM,JM91,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,25/09/1971,ok,ok,ok,,,
+subtropicus,QM,JM91,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,25/09/1971,ok,ok,ok,ok,,
 subtropicus,QM,JM92,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,25/09/1971,ok,ok,,,,
 subtropicus,QM,JM93,Male,unknown,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,25/09/1971,ok,ok,,,,
 subtropicus,QM,JM95,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,25/09/1971,ok,ok,,,,
