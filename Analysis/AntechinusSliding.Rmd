@@ -50,7 +50,7 @@ spheres3d(subtropicus.p1[268:412,],radius = 0.1,col = 3) #patches 145
 text3d(subtropicus.p1, texts = c(1:412), asp = FALSE, cex = 1, col="blue", pos = 3) #plot number of landmarks to check ordering
 
 #import landmark sets for all specimens
-LMcoords <- t(read.csv('../Data/Antechinus_cranialvariation_data.csv', header = T, row.names = 1))
+LMcoords <- t(read.csv('../Data/Antechinus_LMcoords.csv', header = T, row.names = 1))
 dim(LMcoords)
 Ants <- arrayspecs(LMcoords, 82, 3) #convert into array
 dim(Ants)
