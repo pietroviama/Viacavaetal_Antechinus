@@ -41,9 +41,12 @@ template.pc <- subtropicus.p1[83:267,]
 template.pp <- subtropicus.p1[268:412,]
 template.p <- rbind(template.pf, template.pc, template.pp)
 
-#VW trying to get this into an array
+#VW trying to get this into an array - first turn each column into a vector
+V2 <-template.p$V2
+V3 <-template.p$V3
+V4 <- template.p$V4
 
-template_array <- array(template.p, dim = c(412, 3, 1))
+template_array <- array(c(V2, V3, V4), dim = c(412, 3, 1))
 
 #plot landmarks on mesh to check if they correspond well
 shade3d(subtropicus.holo,col = 8)
