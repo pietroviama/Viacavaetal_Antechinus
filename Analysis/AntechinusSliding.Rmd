@@ -41,13 +41,15 @@ template.pc <- subtropicus.p1[83:267,]
 template.pp <- subtropicus.p1[268:412,]
 template.p <- rbind(template.pf, template.pc, template.pp)
 
-#VW trying to get this into an array
-
-template_array <- array(template.p, dim = c(412, 3, 1))
+#VW trying to get this into an array - first turn each column into a vector
+V2 <-template.p$V2
+V3 <-template.p$V3
+V4 <- template.p$V4
+template_array <- array(c(V2, V3, V4), dim = c(412, 3, 1))
 
 #plot landmarks on mesh to check if they correspond well
 shade3d(subtropicus.holo,col = 8)
-spheres3d(subtropicus.p1[1:82,],radius = 0.3,col = 1)#fixed. nb of landmarks = (z-1)/3  82
+spheres3d(subtropicus.p1[1:82,],radius = 0.3,col = 1)#fixed. nb of landmarks = (  z-1)/3  82
 spheres3d(subtropicus.p1[83:267,],radius = 0.2,col = 2) #curves 185
 spheres3d(subtropicus.p1[268:412,],radius = 0.1,col = 3) #patches 145
 
@@ -64,10 +66,10 @@ Ahead <- head(dimnames(Ants))[3]
 ```{r template creation}
 
 # specify fixed landmarks of template specimen in a matrix
-fixed<-as.matrix(template.p[c(1:82),])
+fixed<-as.matrix(template_array[c(1:82),,])
 
 # specify semilandmarks of template specimen in a matrix
-patch<-as.matrix(template.p[c(83:412),])
+patch<-as.matrix(template_array[c(83:412),,])
 
 
 # Specify curves 
