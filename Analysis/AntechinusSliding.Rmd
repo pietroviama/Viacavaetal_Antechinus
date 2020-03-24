@@ -41,6 +41,10 @@ template.pc <- subtropicus.p1[83:267,]
 template.pp <- subtropicus.p1[268:412,]
 template.p <- rbind(template.pf, template.pc, template.pp)
 
+#VW trying to get this into an array
+
+template_array <- array(template.p, dim = c(412, 3, 1))
+
 #plot landmarks on mesh to check if they correspond well
 shade3d(subtropicus.holo,col = 8)
 spheres3d(subtropicus.p1[1:82,],radius = 0.3,col = 1)#fixed. nb of landmarks = (z-1)/3  82
