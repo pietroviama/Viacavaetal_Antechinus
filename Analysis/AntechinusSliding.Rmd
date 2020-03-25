@@ -27,6 +27,13 @@ library(abind)
 
 ## import template mesh and landmark set
 
+CM16483<-file2mesh('../Data/3Dmodels/AntechinusAll3Dmodels/CM16483.ply',readcol=F,clean=T)
+shade3d(CM16483, col = 8)
+spheres3d(Ants[,,1],radius = 0.2,col = 1)
+text3d(Ants[,,1], texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
+
+
+
 subtropicus.holo<-file2mesh('../Data/3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
 subtropicus.p<-(read.csv('../Data/Templatecoords.csv', header = F))
 
@@ -113,10 +120,16 @@ dimnames(data_reorder)[[3]] == Plylist
 #semilandmark placement in all specimenes
 
 
-lmplacement<-placePatch(Atlas, data_reorder, path="../Data/3Dmodels/AntechinusTest/", inflate=1) # use ray=TRUE for projection along surface normals instead of closest point???
+lmplacement<-placePatch(Atlas, data_reorder, path="../Data/3Dmodels/AntechinusTest/", inflate=2) # use ray=TRUE for projection along surface normals instead of closest point???
 
 #check good placement of semilandmarks in all specimens
 checkLM(lmplacement, path = "../Data/3Dmodels/AntechinusTest/", atlas=Atlas, point = "s", pt.size = 0.2)
 
+#CHECKING IF ORDER OF LANDMARKS IS FUCKED UP AND IF THAT'S ALSO FUCKING UP THE LANDMARK PLACEMENT ABOVE
+
+CM16483<-file2mesh('../Data/3Dmodels/AntechinusAll3Dmodels/CM16483.ply',readcol=F,clean=T)
+shade3d(CM16483, col = 8)
+spheres3d(Ants[,,1],radius = 0.2,col = 1)
+text3d(Ants[,,1], texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
 
 ```
