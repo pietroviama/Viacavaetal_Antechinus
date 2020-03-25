@@ -1,13 +1,13 @@
 Species,Collection,ID QM,Sex,Age,Location,Latitude,Longitude,Altitude,Collector,Date collected,Photos,Scanned,Cleaned,Landmarked,Species correction,Other notes
-subtropicus,QM,BSW14,Male,Adult,"Wratten's NP, SEQ 26�17'32""S 152�19'42""E",-26.292,152.328,530,T. Mutton,4/08/2014,ok,ok,ok,,,
-subtropicus,QM,CDT8,Male,Adult,"Conondale NP, SEQ 26�40'38""S 152�34'22""E, 726m el.",-26.677,152.573,706,T. Mutton,21/05/2014,ok,ok,ok,,,
-stuartii,QM,CG1,Male,Adult,"Main Range NP office, Cunningham's Gap, SEQ, 28 03 44 S 152 22 02 E",-28.062,152.367,674,R. Hobson,8/05/2012,ok,ok,ok,,,N19464.
-stuartii,CSIRO,CM10561,Male,Adult,Q: Atherton Tableland Severin State Forest,-17.2,145.6667,728,I. Mason + G. Richards,5/06/1981,ok,ok,ok,,,rainforest
-stuartii,CSIRO,CM10562,Female,Adult,Q: Atherton Tableland Severin State Forest,-17.2,145.6667,728,I. Mason + G. Richards,1/01/1981,ok,ok,ok,,,rainforest
-stuartii,CSIRO,CM10563,Male,Adult,Q: Atherton Tableland Severin State Forest,-17.2,145.6667,728,I. Mason + G. Richards,6/06/1981,ok,ok,ok,,,rainforest
-stuartii,CSIRO,CM11764,Female,Adult,NSW: Manaro and South Coast district: 7.5 km North of Charleyong,,,,M. Jones,4/12/1975,ok,ok,ok,,,Banksia and eucalypt.
-stuartii,CSIRO,CM12785,NA,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,,,
-stuartii,CSIRO,CM12786,NA,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,,,
+subtropicus,QM,BSW14,Male,Adult,"Wratten's NP, SEQ 26�17'32""S 152�19'42""E",-26.292,152.328,530,T. Mutton,4/08/2014,ok,ok,ok,ok,,
+subtropicus,QM,CDT8,Male,Adult,"Conondale NP, SEQ 26�40'38""S 152�34'22""E, 726m el.",-26.677,152.573,706,T. Mutton,21/05/2014,ok,ok,ok,ok,,
+stuartii,QM,CG1,Male,Adult,"Main Range NP office, Cunningham's Gap, SEQ, 28 03 44 S 152 22 02 E",-28.062,152.367,674,R. Hobson,8/05/2012,ok,ok,ok,ok,,N19464.
+stuartii,CSIRO,CM10561,Male,Adult,Q: Atherton Tableland Severin State Forest,-17.2,145.6667,728,I. Mason + G. Richards,5/06/1981,ok,ok,ok,ok,,rainforest
+stuartii,CSIRO,CM10562,Female,Adult,Q: Atherton Tableland Severin State Forest,-17.2,145.6667,728,I. Mason + G. Richards,1/01/1981,ok,ok,ok,ok,,rainforest
+stuartii,CSIRO,CM10563,Male,Adult,Q: Atherton Tableland Severin State Forest,-17.2,145.6667,728,I. Mason + G. Richards,6/06/1981,ok,ok,ok,ok,,rainforest
+stuartii,CSIRO,CM11764,Female,Adult,NSW: Manaro and South Coast district: 7.5 km North of Charleyong,,,,M. Jones,4/12/1975,ok,ok,ok,ok,,Banksia and eucalypt.
+stuartii,CSIRO,CM12785,NA,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,ok,,
+stuartii,CSIRO,CM12786,NA,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,ok,,
 stuartii,CSIRO,CM15246,Male,Adult,Ryan's Swamp Jervis Bay N. SW.,-35.1667,150.6667,0,KB,21/03/1975,ok,ok,ok,,,Dwell Ti tree Bracker and grasses
 stuartii,CSIRO,CM16483,Female,Adult,NSW. 4km. S. of Goulburn on Rd. to Braidwood,-34.7917,148.7,542,H. Gibson,16/04/1992,ok,ok,ok,ok,,
 stuartii,CSIRO,CM16495,Male,Adult,"NSW: Golspie, NW of Crookwell",-34.3,149.6833,888,A. Gibson,1/01/1992,ok,ok,ok,,,Hab: Country town buildings
