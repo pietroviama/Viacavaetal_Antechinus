@@ -27,13 +27,6 @@ library(abind)
 
 ## import template mesh and landmark set
 
-CM16483<-file2mesh('../Data/3Dmodels/AntechinusAll3Dmodels/CM16483.ply',readcol=F,clean=T)
-shade3d(CM16483, col = 8)
-spheres3d(Ants[,,1],radius = 0.2,col = 1)
-text3d(Ants[,,1], texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
-
-
-
 subtropicus.holo<-file2mesh('../Data/3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
 subtropicus.p<-(read.csv('../Data/Templatecoords.csv', header = F))
 
@@ -80,11 +73,11 @@ fixed<-as.matrix(template_array[c(1:82),,])
 
 # specify semilandmarks of template specimen in a matrix
 patch<-as.matrix(template_array[c(83:376),,])
-
+rownames(patch)<-c(1:294)
 
 
 #Atlas creation
-Atlas<-createAtlas(subtropicus.holo,landmarks = fixed, patch = patch, patchCurves = list(c(1:3, c(4:6), c(7:9), c(10:12), c(13:20), c(21:23), c(24:26), c(27:29), c(30:32), c(33:36), c(37:40), c(41:43), c(44:46), c(47:51), c(52:56), c(57:59), c(60:63), c(64:66), c(67:70), c(71:75), c(76:78), c(79:81), c(82:85), c(86:89), c(90:93), c(94:97), c(98:100), c(101:103), c(104:106), c(107:111), c(112:114), c(115:119), c(120:124), c(125:129), c(130:132), c(133:135), c(136:138), c(139:146), c(147:149))))
+Atlas<-createAtlas(subtropicus.holo,landmarks = fixed, patch = patch, patchCurves = list(c(1:3, c(4:6), c(7:9), c(10:12), c(13:20), c(21:23), c(24:26), c(27:29), c(30:32), c(33:36), c(37:40), c(41:43), c(44:46), c(47:51), c(52:56), c(57:59), c(60:63), c(64:66), c(67:70), c(71:75), c(76:78), c(79:81), c(82:85), c(86:89), c(90:93), c(94:97), c(98:100), c(101:103), c(104:106), c(107:111), c(112:114), c(115:119), c(120:124), c(125:129), c(130:132), c(133:135), c(136:138), c(139:146), c(147:149), c(150:294))))
 
 #Atlas plot 
 cols<-c("black","red","green","blue")
@@ -101,6 +94,8 @@ Folder <- "../Data/3Dmodels/AntechinusTest/"
 
 #Navigate to folder with the subsample of ply files
 Plylist <- sub(".ply", "", list.files(Folder))
+
+
 
 #extract the coordinates that correspond to the ply files - note the dimnames and the ply file names need to be identical
 #match ply file names with data names and reorder
@@ -131,5 +126,90 @@ CM16483<-file2mesh('../Data/3Dmodels/AntechinusAll3Dmodels/CM16483.ply',readcol=
 shade3d(CM16483, col = 8)
 spheres3d(Ants[,,1],radius = 0.2,col = 1)
 text3d(Ants[,,1], texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
+
+```
+
+```{r checking placement and making curves equidistant}
+
+setwd("../Data/3Dmodels/AntechinusTest")
+
+provo<-placePatch(Atlas,data_reorder,path="../Data/3Dmodels/AntechinusTest",
+                  inflate=0.5)
+
+
+mfrow3d(2,3,sharedMouse = T)
+
+shade3d(tempmesh,col=8)
+spheres3d(templa[1:82,],radius=0.2,col=1)
+spheres3d(templa[83:231,],radius=0.2,col=2)
+spheres3d(templa[232:376,],radius=0.2,col=3)
+
+for(i in 1:dim(myset)[[3]]){
+  
+  next3d()
+  shade3d(listo[[i]],col=8)
+  spheres3d(provo[1:82,,i],radius=0.2,col=1)
+  spheres3d(provo[83:231,,i],radius=0.2,col=2)
+  spheres3d(provo[232:376,,i],radius=0.2,col=3)
+  
+}
+
+
+
+equi<-matrix(NA,ncol =3)
+disto<-NULL
+for(i in 1:dim(provo)[[3]]){
+  ccc<-provo[221:228,,i]
+  disto[i]<-list(equidistantCurve(ccc,iterations=10,increment=6,smoothit=4,mesh=listo[[i]]))
+  equi<-array(as.numeric(unlist(disto)),dim=dim(provo[221:228,,]))
+}
+
+
+new.prov<-bindArr(provo[1:220,,],equi,provo[229:376,,],along=1)
+
+newi<-new.prov[-c(115:122,142:145,149:152),,]
+
+
+mfrow3d(2,3,sharedMouse = T)
+mfrow3d(1,2,sharedMouse = T)
+
+
+shade3d(tempmesh,col=8)
+spheres3d(templa[1:82,],radius=0.2,col=1)
+spheres3d(templa[83:231,],radius=0.2,col=2)
+spheres3d(templa[232:376,],radius=0.2,col=3)
+
+for(i in 1:dim(new.prov)[[3]]){
+  
+  next3d()
+  shade3d(listo[[i]],col=8)
+  spheres3d(new.prov[1:82,,i],radius=0.2,col=1)
+  spheres3d(new.prov[83:231,,i],radius=0.1,col=2)
+  spheres3d(new.prov[232:376,,i],radius=0.1,col=3)
+  
+}
+
+i=2
+
+
+palle<-bindArr(new.prov[1:82,,],equi2,along=1)
+
+
+
+shade3d(meshi,col=8)
+spheres3d(newi[1:82,,2],radius=0.2,col=1)
+spheres3d(newi[83:215,,2],radius=0.2,col=2)
+spheres3d(newi[216:360,,2],radius=0.2,col=3)
+
+
+meshi<-vcgQEdecim(listo[[2]],percent = 0.05)
+
+shade3d(meshi,col=8)
+
+writeWebGL("new.html")
+
+
+
+
 
 ```
