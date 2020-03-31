@@ -27,8 +27,8 @@ stuartii,CSIRO,CM3651,Female,SubAdult,Tianjara Falls. Via Sassafras N.S.W.,-35.1
 stuartii,CSIRO,CM3652,Female,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,7/02/1970,ok,ok,ok,ok,,
 stuartii,CSIRO,CM3660,Female,SubAdult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,ok,ok,,P3 partially erupted.
 stuartii,CSIRO,CM3661,Male,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,ok,ok,,
-stuartii,CSIRO,CM3662,Female,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,ok,,,
-stuartii,CSIRO,CM3663,Female,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,ok,,,
+stuartii,CSIRO,CM3662,Female,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,ok,ok,,
+stuartii,CSIRO,CM3663,Female,Adult,Tianjara Falls. Via Sassafras N.S.W.,-35.1167,150.3333,552,J. Wombey,8/02/1970,ok,ok,ok,ok,,
 stuartii,CSIRO,CM3713,Male,Adult,Mebbin State Forest Via Murwillumbah N.E. N.S.W.,-28.4667,153.1667,195,K. Keith,8/03/1970,ok,ok,ok,ok,,
 stuartii,CSIRO,CM3792,Female,Juvenile? ,Redlands via Ebor N.S.W.,-30.3667,152.45,1275,K. Keith,20/01/1971,ok,ok,,,,Wet sclerophyll. P3 not erupted.
 stuartii,CSIRO,CM3793,Male,Juvenile? ,"Redlands' Via Ebor, NSW",-30.3667,152.45,1275,K. Keith,20/01/1971,ok,ok,,,,Wet sclerophyll. P3 not erupted.
@@ -59,7 +59,7 @@ stuartii,QM,G41,Male,Adult,Gambubal SF,-28.246,152.384,1002,Baker & Mutton,24/05
 subtropicus,QM,J10471,Female,Adult,Mt Glorious,-27.333,152.767,572,E. Williams,13/03/1960,ok,ok,,,,
 subtropicus,QM,J11098,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,D. Bryce,14/11/1961,ok,ok,,,,
 subtropicus,QM,J11443,Male,Adult,Mt Glorious SEQ,-27.333,152.767,572,C. Bryce,5/03/1962,ok,ok,,,,Workshop No. 2362
-subtropicus,QM,J13235,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Rick,8/06/1964,ok,ok,ok,,,Q. M. Workshop No. 3144 - Skin mounted and donated to Dr. R. J. Rick
+subtropicus,QM,J13235,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Rick,8/06/1964,ok,ok,ok,ok,,Q. M. Workshop No. 3144 - Skin mounted and donated to Dr. R. J. Rick
 subtropicus,QM,J13244,Female,Adult,Mt Glorious,-27.333,152.767,572,R. Rick,8/06/1964,ok,ok,,,,Q. M. Workshop No. 3145
 subtropicus,QM,J15870,Male,Adult,Woodum S. F. Gympie SEQ,-26.25,152.733,78,T. Tebble / J. Covacevich,28/08/1968,ok,ok,,,,Coll. In net sclerophyll. Field no. 10
 subtropicus,QM,J15888,Female,Adult,Emu Vale. SEQ,-28.233,152.267,563,T. Kirkpatrick,14/02/1968,ok,ok,,,,Body in spirit. Q. M. Workshop no 4818
@@ -72,14 +72,14 @@ subtropicus,QM,J17401,Male,Adult,Warwick district,-28.217,152.033,467,T. Kirkpat
 stuartii,QM,J17402,Female,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,ok,subtropicus?,Q. M. Workshop 5143. J. M. no. 5.
 subtropicus,QM,J17403,Female,Adult,Warwick district SEQ,-28.217,152.033,467,T. Kirkpatrick,2/07/1969,ok,ok,,,,Q. M. Workshop 5144. Jm. No. 6
 stuartii,QM,J17406,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,,,subtropicus?,Q. M. Workshop 5141. J. Martin no. 3.
-subtropicus,QM,J17407,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,,,holotype specimen. 
+subtropicus,QM,J17407,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,ok,,holotype specimen. 
 subtropicus,QM,J17410,Male,Adult,Mt Glorious (Parish of Dundas),-27.333,152.767,572,J. Covacevich / T. Tebble,12/06/1968,ok,ok,,,,Q. M. Workshop 4847
 subtropicus,QM,J20265,Male,Adult,Tallebudgera Ck Burleigh SEQ,-28.1,153.45,6,D. H. Fleay,6/07/1970,ok,ok,,,,Q. M. Workshop no 5610
 stuartii,QM,J3716,Male,Adult,Mt Tambourine SEQ,-27.917,153.167,517,T. Burston,6/08/1922,ok,ok,,,subtropicus?,Skin in old collection.
 stuartii,QM,J3810,Unknown,Adult,Guy Fawkes Dist NSW,-30.4,152.35,1301,"H. Burrell, A. LeSouef",27/04/1922,ok,ok,,,subtropicus?,Skin in old collection.
 stuartii,QM,J5030,Male,Adult,Dorrigo N. S. W.,-30.333,152.717,725,H. Burrell,10/03/1930,ok,ok,,,,
 stuartii,QM,J7727,Female,Adult,4 mls NE Wallangarra 3500' SQ.,-28.9,151.983,1096,Mus Staff,24/05/1950,ok,ok,,,subtropicus?,
-stuartii,QM,J8088,Male,Adult,E of Wyberba S. Q. (Pyramid Ck.),-28.833,151.95,1009,M. E. McAnna,17/07/1951,ok,ok,ok,,subtropicus?,
+stuartii,QM,J8088,Male,Adult,E of Wyberba S. Q. (Pyramid Ck.),-28.833,151.95,1009,M. E. McAnna,17/07/1951,ok,ok,ok,not suitable,subtropicus?,
 subtropicus,QM,JM100,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,24/09/1971,ok,ok,,,,
 subtropicus,QM,JM108,Male,unknown,presumably Mt. Glorious SEQ,-27.333,152.767,572,presumably R. Braithwaite,00/09/1971,ok,ok,,,,
 subtropicus,QM,JM11445,Female,Adult,"Mt Glorious, near Forest Station",-27.333,152.767,572,J. Kucers,22/10/1996,ok,ok,,,,
@@ -89,7 +89,7 @@ subtropicus,QM,JM134,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Braithw
 subtropicus,QM,JM1420,Male,Adult,Numinbah Arch Nerang Valley SEQ,-28.217,153.233,467,G.B. & S. R. Monteith,25/05/1975 - 13/10/1975,ok,ok,,,,Field # 36B/4
 subtropicus,QM,JM14415,Male,Adult,"Numinbah Valley, SEQ",-28.217,153.233,467,Unknown,5/07/2000,ok,ok,,,,
 subtropicus,QM,JM14417,Male,Adult,"Natural Bridge, SEQ",-28.233,153.25,741,J. R. Thompson,22/05/2000,ok,ok,,,,
-subtropicus,QM,JM14447,Male,Adult,Mt Nebo 27�23'S 152�47'E (calc),-27.383,152.783,457,Whitaker,00/07/2000,ok,ok,ok,,,
+subtropicus,QM,JM14447,Male,Adult,Mt Nebo 27�23'S 152�47'E (calc),-27.383,152.783,457,Whitaker,00/07/2000,ok,ok,ok,ok,,
 subtropicus,QM,JM14448,Male,Adult,Mt Nebo 27�23'S 152�47'E (calc),-27.383,152.783,457,Whitaker,00/07/2000,ok,ok,,,,
 subtropicus,QM,JM14452,Unknown,Adult,"Casswell Ck, Wonglepong, SEQ",-27.967,153.167,411,J. Everleigh,11/03/2000,ok,ok,,,,
 subtropicus,QM,JM145,Female,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/05/1971,ok,ok,,,,
@@ -99,7 +99,7 @@ stuartii,QM,JM15025,Unknown,Adult,Girraween N. P. SEQ,-28.862,152.032,287,Ian Gy
 stuartii,QM,JM15026,Unknown,Adult,Girraween N. P. SEQ,-28.892,152.433,462,Ian Gynther,17/04/2002,ok,ok,,,,
 subtropicus,QM,JM151,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/08/1971,ok,ok,,,,
 subtropicus,QM,JM152,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/08/1971,ok,ok,,,,
-subtropicus,QM,JM153,Male,Adult,"presumably Mt. Glorious 27�20'S, 152�46'E",-27.333,152.767,572,R. Braithwaite,00/08/1971,ok,ok,ok,,,Female?
+subtropicus,QM,JM153,Male,Adult,"presumably Mt. Glorious 27�20'S, 152�46'E",-27.333,152.767,572,R. Braithwaite,00/08/1971,ok,ok,ok,ok,,Female?
 subtropicus,QM,JM154,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/08/1971,ok,ok,,,,
 subtropicus,QM,JM15445,Female,Adult,"Mapleton Day Use Area 26�36'20""S / 152�51'17""E",-26.606,152.855,388,T + K Hickman,18/08/2001,ok,ok,,,,
 subtropicus,QM,JM155,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,00/08/1971,ok,ok,,,,
