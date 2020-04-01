@@ -59,7 +59,7 @@ spheres3d(template_array[232:376,,],radius = 0.1,col = 3) #patches 145
 text3d(template_array[1:376,,], texts = c(1:376), asp = FALSE, cex = 1, col="blue", pos = 3) #plot number of landmarks to check ordering
 
 #import landmark sets for all specimens
-LMcoords <- t(read.csv('../Data/Antechinus_LMcoords.csv', header = T, row.names = 1))
+LMcoords <- t(read.csv('../Data/3Dmodels/AntechinusTest/coords/Antechinus_LMcoords.csv', header = T, row.names = 1))
 dim(LMcoords)
 Ants <- arrayspecs(LMcoords, 82, 3) #convert into array
 dim(Ants)
@@ -83,14 +83,15 @@ Atlas<-createAtlas(subtropicus.holo,landmarks = fixed, patch = patch, patchCurve
 cols<-c("black","red","green","blue")
 plotAtlas(Atlas, pt.size=0.2, point = "s", legend = TRUE, cols = cols)
 
-
 ```
 
 
 ```{r semilandmark placement}
 
+knitr::opts_knit$set(root.dir = 'Viacavaetal_Antechinus/Data/3Dmodels/AntechinusTest/meshes/', echo = TRUE)
+
 #Folder with all meshes
-Folder <- "../Data/3Dmodels/AntechinusTest/"
+Folder <- "../Data/3Dmodels/AntechinusTest/meshes"
 
 #Navigate to folder with the subsample of ply files
 Plylist <- sub(".ply", "", list.files(Folder))
@@ -106,16 +107,19 @@ Plylist==dimnames(Ants)[[3]]
 
 data_reorder<-Ants[, , match(Plylist, dimnames(Ants)[[3]])]
 
-
 names_reorder<-dimnames(data_reorder)[[3]]
 match(names_reorder, Plylist)
 
 dimnames(data_reorder)[[3]] == Plylist
 
+setwd("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusTest/meshes/") #does not work with Rmd, run separately
+
+nma<-list.files(path="../Data/3Dmodels/AntechinusTest/meshes")
+listo<-do.call(list,lapply(nma,function(x) file2mesh(x,readcol=F,clean=T)))
+
 #semilandmark placement in all specimenes
 
-
-lmplacement<-placePatch(Atlas, data_reorder, path="../Data/3Dmodels/AntechinusTest/", inflate=2) # use ray=TRUE for projection along surface normals instead of closest point???
+lmplacement<-placePatch(Atlas, data_reorder, path="../Data/3Dmodels/AntechinusTest/", inflate=0.5) # use ray=TRUE for projection along surface normals instead of closest point???
 
 #check good placement of semilandmarks in all specimens
 checkLM(lmplacement, path = "../Data/3Dmodels/AntechinusTest/", atlas=Atlas, point = "s", pt.size = 0.2)
@@ -133,39 +137,34 @@ text3d(Ants[,,1], texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
 
 setwd("../Data/3Dmodels/AntechinusTest")
 
-provo<-placePatch(Atlas,data_reorder,path="../Data/3Dmodels/AntechinusTest",
+provo<-placePatch(Atlas,data_reorder,path="../Data/3Dmodels/AntechinusTest/meshes/",
                   inflate=0.5)
 
 
 mfrow3d(2,3,sharedMouse = T)
+shade3d(subtropicus.holo,col=8)
+spheres3d(template_array[1:82,,],radius = 0.2,col = 1)#fixed. nb of landmarks = (  z-1)/3  82
+spheres3d(template_array[83:231,,],radius = 0.1,col = 2) #curves 185
+spheres3d(template_array[232:376,,],radius = 0.1,col = 3)
 
-shade3d(tempmesh,col=8)
-spheres3d(templa[1:82,],radius=0.2,col=1)
-spheres3d(templa[83:231,],radius=0.2,col=2)
-spheres3d(templa[232:376,],radius=0.2,col=3)
-
-for(i in 1:dim(myset)[[3]]){
-  
-  next3d()
-  shade3d(listo[[i]],col=8)
-  spheres3d(provo[1:82,,i],radius=0.2,col=1)
-  spheres3d(provo[83:231,,i],radius=0.2,col=2)
-  spheres3d(provo[232:376,,i],radius=0.2,col=3)
-  
+for(i in 1:dim(data_reorder)[[3]]){
+next3d()
+shade3d(listo[[i]],col=8)
+spheres3d(provo[1:82,,i],radius=0.2,col=1)
+spheres3d(provo[83:231,,i],radius=0.2,col=2)
+spheres3d(provo[232:376,,i],radius=0.2,col=3)
 }
-
-
 
 equi<-matrix(NA,ncol =3)
 disto<-NULL
 for(i in 1:dim(provo)[[3]]){
-  ccc<-provo[221:228,,i]
-  disto[i]<-list(equidistantCurve(ccc,iterations=10,increment=6,smoothit=4,mesh=listo[[i]]))
-  equi<-array(as.numeric(unlist(disto)),dim=dim(provo[221:228,,]))
+ccc<-provo[221:228,,i]
+disto[i]<-list(equidistantCurve(ccc,iterations=10,increment=6,smoothit=4,mesh=listo[[i]]))
+equi<-array(as.numeric(unlist(disto)),dim=dim(provo[221:228,,]))
 }
 
-
 new.prov<-bindArr(provo[1:220,,],equi,provo[229:376,,],along=1)
+
 
 newi<-new.prov[-c(115:122,142:145,149:152),,]
 
