@@ -66,6 +66,8 @@ library(ggplot2)
 library(ggmap)
 library(maps)
 
+antechinusdata <- read.csv("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Antechinus_cranialvariation_data.csv", header=T)
+
 antechinusdata1 <- antechinusdata[-c(184,186),]
 
 range(antechinusdata$Longitude, na.rm = TRUE, finite = TRUE)
