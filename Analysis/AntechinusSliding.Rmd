@@ -27,8 +27,8 @@ library(abind)
 
 ## import template mesh and landmark set
 
-subtropicus.holo<-file2mesh('../Data/3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
-subtropicus.p<-(read.csv('../Data/Templatecoords.csv', header = F))
+subtropicus.holo<-file2mesh('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
+subtropicus.p<-(read.csv('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Templatecoords.csv', header = F))
 
 dim(subtropicus.p) 
 rownames(subtropicus.p)<-subtropicus.p$V1 
@@ -59,7 +59,7 @@ spheres3d(template_array[232:376,,],radius = 0.1,col = 3) #patches 145
 text3d(template_array[1:376,,], texts = c(1:376), asp = FALSE, cex = 1, col="blue", pos = 3) #plot number of landmarks to check ordering
 
 #import landmark sets for all specimens
-LMcoords <- t(read.csv('../Data/3Dmodels/AntechinusTest/coords/Antechinus_LMcoords.csv', header = T, row.names = 1))
+LMcoords <- t(read.csv('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusTest/coords/Antechinus_LMcoords.csv', header = T, row.names = 1))
 dim(LMcoords)
 Ants <- arrayspecs(LMcoords, 82, 3) #convert into array
 dim(Ants)

@@ -1,0 +1,257 @@
+---
+title: "Viacavaetal_Antechinus_GeneralAnalysis"
+author: "PViacava"
+date: "15/04/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = '../Viacavaetal_Antechinus/Data', echo = TRUE)
+
+#load libraries
+
+library(ggplot2)
+library(digest)
+library(rgl)
+library(geomorph)
+library(vegan) # vegan version 2.4-4
+library(Morpho)
+library(ape)
+library(raster)
+library(sp)
+library(MASS)
+library(RColorBrewer)
+library(shapes)
+library(wesanderson)
+library(magick)
+
+
+```
+
+
+
+```{r load data}
+#Import 3D coordinates from all specimens
+coords.3D <- t (read.csv("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Antechinus_LMcoords.csv", header = TRUE, row.names = 1))
+dim(coords.3D)
+
+#Convert 2D metadata into a 3D array
+A <- arrayspecs(coords.3D, 82, 3)
+dim(A)
+Ahead <- head(dimnames(A))[3]
+
+#Load the classifier
+antechinusdata <- read.csv("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Antechinus_data.csv", header=T)
+dim(antechinusdata)
+Data.species <- antechinusdata$Species
+is.factor(Data.species) # check that it is a factor
+
+
+
+
+
+#give museum ID row names to quolls data
+rownames(antechinusdata)<-antechinusdata$ID
+
+####Rearrange coordinate names and classifier file names in the same order
+
+names_array <- dimnames(A)[[3]]
+names_classifier <- rownames(antechinusdata)
+match(names_array, names_classifier)
+A_reorder <- A[,,match(names_classifier, names_array)]
+
+names_Areorder <- dimnames(A_reorder)[[3]]
+match(names_Areorder, names_classifier)
+
+#CLEANED VERY ROUGHLY, RECHECK SPECIMENS THAT CAN BE INCLUDED IN THE ANALYSIS
+A_reorder <- A_reorder[,,-which(antechinusdata$Age=="Juvenile?")]
+A_reorder <- A_reorder[,,-which(antechinusdata$Population=="adustus?")]
+
+antechinusdata <- antechinusdata[-which(antechinusdata$Age=="Juvenile?"),]
+antechinusdata <- antechinusdata[-which(antechinusdata$Population=="adustus?"),]
+antechinusdata <- droplevels(antechinusdata)
+
+#####DO THAT######
+
+
+gpaall<-gpagen(A_reorder, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
+                   max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+
+
+#include precipitation and temperature data from worldclim
+
+rclim<- getData("worldclim",var="bio",res=10) #run in console
+
+rclim <- rclim[[c(1,12)]]
+names(rclim) <- c("Temp","Prec")
+
+lons <- antechinusdata$Longitude
+lats <- antechinusdata$Latitude
+
+coordsgps <- data.frame(lons, lats)
+
+valuestemp <- extract(rclim,coordsgps)
+
+dfwtemp <- cbind.data.frame(coordsgps,valuestemp)
+
+dfwtemp
+
+#frame data for geomorph
+
+gdfante <- geomorph.data.frame(gpaall, Species = antechinusdata$Species, Population = antechinusdata$Population, ID = antechinusdata$ID, Sex = antechinusdata$Sex, Latitude = antechinusdata$Latitude, Longitude = antechinusdata$Longitude, Altitude = antechinusdata$Altitude, Dat_coll = antechinusdata$Date.collected, Collection = antechinusdata$Collection,
+                           tempworldclim = dfwtemp$Prec, tempworldclim = dfwtemp$Temp, Age = antechinusdata$Age, doubt = antechinusdata$doubt) 
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r exploratory analysis for all, include=TRUE}
+
+#PCA for all specimens
+
+PCAante <- plotTangentSpace(gdfante$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfante$Population, legend = gdfante$ID)
+
+summary(PCAante)
+
+cols<-brewer.pal(n=5,name="Set1")
+cols_dat<-cols[gdfante$Population]
+
+PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:17)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.58%)", ylab="Principal Component 2 (8.39%)")
+text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$doubt, pos=4)
+#need to correct legend
+legend(0.04, 0.02, legend=paste(rep(c("Female","Male"), times=2), rep(c("subtropicus","stuartii"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
+
+
+#ggplot PCA (nicer)
+
+Population <- gdfante$Population
+Sex <- gdfante$Sex
+doubt <- gdfante$doubt
+dataPCA <- data.frame(PCAante$pc.scores[,1], PCAante$pc.scores[,2], Population, Sex)
+
+plotPCA <- ggplot(dataPCA, aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., colour = Population, shape = Sex)) +
+  labs(x = "PC 1 (18.74%)", y = "PC 2 (8.25%)") +
+  geom_point(size = 8, alpha = 0.8) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
+
+plot(plotPCA)
+
+#SAME but without population identity doubts
+
+#CLEANED VERY ROUGHLY, RECHECK SPECIMENS THAT CAN BE INCLUDED IN THE ANALYSIS
+A_reorderpop <- A_reorder[,,-which(antechinusdata$Population=="?")]
+
+antechinusdatapop <- antechinusdata[-which(antechinusdata$Population=="?"),]
+antechinusdatapop <- droplevels(antechinusdatapop)
+
+
+gpaallpop<-gpagen(A_reorderpop, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
+                   max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+
+
+#include precipitation and temperature data from worldclim
+
+rclim<- getData("worldclim",var="bio",res=10) #run in console
+
+rclimpop <- rclim[[c(1,12)]]
+names(rclimpop) <- c("Temp","Prec")
+
+lonspop <- antechinusdatapop$Longitude
+latspop <- antechinusdatapop$Latitude
+
+coordsgpspop <- data.frame(lonspop, latspop)
+
+valuestemppop <- extract(rclimpop,coordsgpspop)
+
+dfwtemppop <- cbind.data.frame(coordsgpspop,valuestemppop)
+
+dfwtemppop
+
+#frame data for geomorph
+
+gdfantepop <- geomorph.data.frame(gpaallpop, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
+                           tempworldclim = dfwtemppop$Prec, tempworldclim = dfwtemppop$Temp, Age = antechinusdatapop$Age, doubt = antechinusdatapop$doubt) 
+
+PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantepop$Population, legend = gdfantepop$ID)
+
+summary(PCAantepop)
+
+
+Populationpop <- gdfantepop$Population
+Sexpop <- gdfantepop$Sex
+dataPCApop <- data.frame(PCAantepop$pc.scores[,1], PCAantepop$pc.scores[,2], Populationpop, Sexpop)
+
+plotPCApop <- ggplot(dataPCApop, aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop, shape = Sexpop)) +
+  labs(x = "PC 1 (18.74%)", y = "PC 2 (8.25%)") +
+  geom_point(size = 8, alpha = 0.8) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
+
+plot(plotPCApop)
+
+
+###########
+##########
+#############
+
+summary(lm(gdfante$Csize~PCAante$pc.scores[,1]))
+summary(lm(gdfante$Csize~PCAante$pc.scores[,2]))
+summary(lm(gdfante$Csize~PCAante$pc.scores[,3]))
+
+fit.size <- procD.lm(f1 = coords~Csize, data = gdfante, print.progress = FALSE)
+fit.size.plot <- plotAllometry(fit.size, size = gdfante$Csize, logsz = FALSE, method = "RegScore", pch = 19, col = cols_dat, cex = 3)
+anova(fit.size)
+
+
+fitpop <- procD.lm(gpaall$coords~antechinusdata$Population, iter = 999, effect.type = "F")
+anova(fitpop)
+
+disparitypops <- morphol.disparity(fitpop, groups = ~ Population, data = gdfante, iter = 999)
+summary(disparitypops)
+
+PWpop <- pairwise(fitpop, groups = gdfante$Population)
+
+PWpop.sum <- summary(PWpop, test.type = "var")
+PWpop.sum$summary.table
+
+colswes <- wes_palette("Darjeeling1")
+
+names(colswes) <- levels(gdfante$Species ) # assign levels to colours
+col.gp <- colswes[match(gdfante$Species, names(colswes))] # magic!
+head(col.gp)
+
+stuartiicoords <- gdfante$coords[,,which(gdfante$Species=="stuartii")]
+mshapestuartii <- mshape(stuartiicoords)
+subtropicuscoords <- gdfante$coords[,,which(gdfante$Species=="subtropicus")]
+mshapesubtropicus <- mshape(subtropicuscoords)
+
+plotRefToTarget(mshapestuartii, mshapesubtropicus, method="vector", gridPars = gridpars)
+
+#ALLOMETRY PLOT
+
+
+
+
+
+
+```
+
+
+JM21530.pts<-A_reorder[,,"JM21530"]
+open3d()
+spheres3d(JM21530.pts,radius = 0.2,col = 1)
+text3d(JM21530.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
+
+
+CM3795.pts<-A_reorder[,,"CM3795"]
+open3d()
+spheres3d(CM3795.pts,radius = 0.2,col = 1)
+text3d(CM3795.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
+
+
+
+plot3d(PCAante$pc.scores[,1], PCAante$pc.scores[,2], PCAante$pc.scores[,3], col = cols_dat, type = "s", radius = .002, xlab="Principal Component 1 (19.92%)", ylab="Principal Component 2 (8.42%)", zlab = "Principal Component 3 (6.2%)", ann = FALSE, axes = FALSE)
+box3d()
