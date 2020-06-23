@@ -118,8 +118,8 @@ summary(PCAante)
 cols<-brewer.pal(n=5,name="Set1")
 cols_dat<-cols[gdfante$Population]
 
-PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:17)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.58%)", ylab="Principal Component 2 (8.39%)")
-text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$doubt, pos=4)
+PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,34], col = cols_dat, pch = c(16:17)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.58%)", ylab="Principal Component 2 (8.39%)")
+text(PCAante$pc.scores[,1], PCAante$pc.scores[,34], labels=gdfante$ID, pos=4)
 #need to correct legend
 legend(0.04, 0.02, legend=paste(rep(c("Female","Male"), times=2), rep(c("subtropicus","stuartii"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
 
@@ -170,15 +170,30 @@ dfwtemppop <- cbind.data.frame(coordsgpspop,valuestemppop)
 
 dfwtemppop
 
+
+antegps <- data.frame(antechinusdatapop$Latitude, antechinusdatapop$Longitude)
+evariables <- c("cl620", "cl618", "el830", "el1077", "el674")
+retrieved.evariables <- intersect_points(antegps, evariables)
+retrieved.evariables$vegetationTypesPresent<-as.factor(retrieved.evariables$vegetationTypesPresent)
+retrieved.evariables$landCover<-as.factor(retrieved.evariables$landCover)
+retrieved.evariables$distanceToPermanentWaterWeighted[is.na(retrieved.evariables$distanceToPermanentWaterWeighted)]<-0
+retrieved.evariables$elevation[is.na(retrieved.evariables$elevation)]<-0
+
+
+antechinusdatapop$distanceTowater <- retrieved.evariables$distanceToPermanentWaterWeighted
+antechinusdatapop$elevation <- retrieved.evariables$elevation
+
 #frame data for geomorph
 
-gdfantepop <- geomorph.data.frame(gpaallpop, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
-                           tempworldclim = dfwtemppop$Prec, tempworldclim = dfwtemppop$Temp, Age = antechinusdatapop$Age, doubt = antechinusdatapop$doubt) 
+gdfantepop <- geomorph.data.frame(coords = gpaallpop$coords, csize = gpaallpop$Csize, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
+                           ppworldclim = dfwtemppop$Prec, tempworldclim = dfwtemppop$Temp, Age = antechinusdatapop$Age, doubt = antechinusdatapop$doubt, distanceTowater = antechinusdatapop$distanceTowater, elevation = antechinusdatapop$elevation) 
 
 PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantepop$Population, legend = gdfantepop$ID)
 
 summary(PCAantepop)
 
+colspop<-brewer.pal(n=3,name="Set2")
+cols_datpop<-cols[gdfantepop$Population]
 
 Populationpop <- gdfantepop$Population
 Sexpop <- gdfantepop$Sex
@@ -201,49 +216,115 @@ summary(lm(gdfante$Csize~PCAante$pc.scores[,1]))
 summary(lm(gdfante$Csize~PCAante$pc.scores[,2]))
 summary(lm(gdfante$Csize~PCAante$pc.scores[,3]))
 
-fit.size <- procD.lm(f1 = coords~Csize, data = gdfante, print.progress = FALSE)
-fit.size.plot <- plotAllometry(fit.size, size = gdfante$Csize, logsz = FALSE, method = "RegScore", pch = 19, col = cols_dat, cex = 3)
+
+# Allometry figure 
+
+fit.sizepop <- procD.lm(f1 = coords~Csize, data = gdfantepop, print.progress = FALSE)
+fit.size.plotpop <- plotAllometry(fit.sizepop, size = gdfantepop$Csize, logsz = FALSE, method = "RegScore", pch = 19, col = as.numeric(gdfantepop$Population), cex = 3)
 anova(fit.size)
 
+dataallometryplotpop <- data.frame(fit.size.plotpop$size.var, fit.size.plotpop$RegScore, Populationpop, Sexpop)
 
-fitpop <- procD.lm(gpaall$coords~antechinusdata$Population, iter = 999, effect.type = "F")
+plotallompop <- ggplot(dataallometryplotpop, aes(x=fit.size.plotpop.size.var, y=fit.size.plotpop.RegScore, colour = Populationpop, shape = Sexpop)) +
+  labs(x = "Centroid Size", y = "Shape Score") +
+  geom_point(size = 8, alpha = 0.8) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
+
+plot(plotallompop)
+
+#Are populations different in shape?
+
+fitpop <- procD.lm(coords~Population, data = gdfantepop, iter = 999, effect.type = "F")
 anova(fitpop)
 
-disparitypops <- morphol.disparity(fitpop, groups = ~ Population, data = gdfante, iter = 999)
-summary(disparitypops)
+#yes, which ones are different?
 
-PWpop <- pairwise(fitpop, groups = gdfante$Population)
-
+PWpop <- pairwise(fitpop, groups = gdfantepop$Population)
 PWpop.sum <- summary(PWpop, test.type = "var")
 PWpop.sum$summary.table
 
+disparitypops <- morphol.disparity(fitpop, groups = ~ Population, data = gdfantepop, iter = 999)
+summary(disparitypops)
+
+
+
+
+
 colswes <- wes_palette("Darjeeling1")
 
-names(colswes) <- levels(gdfante$Species ) # assign levels to colours
-col.gp <- colswes[match(gdfante$Species, names(colswes))] # magic!
+names(colswes) <- levels(gdfantepop$Population ) # assign levels to colours
+col.gp <- colswes[match(gdfantepop$Population, names(colswes))] # magic!
 head(col.gp)
 
-stuartiicoords <- gdfante$coords[,,which(gdfante$Species=="stuartii")]
-mshapestuartii <- mshape(stuartiicoords)
-subtropicuscoords <- gdfante$coords[,,which(gdfante$Species=="subtropicus")]
+northcoords <- gdfantepop$coords[,,which(gdfantepop$Population=="north")]
+mshapenorth <- mshape(northcoords)
+southcoords <- gdfantepop$coords[,,which(gdfantepop$Population=="south")]
+mshapesouth <- mshape(southcoords)
+subtropicuscoords <- gdfantepop$coords[,,which(gdfantepop$Population=="subtropicus")]
 mshapesubtropicus <- mshape(subtropicuscoords)
 
-plotRefToTarget(mshapestuartii, mshapesubtropicus, method="vector", gridPars = gridpars)
+plotRefToTarget(mshapenorth, mshapesubtropicus, method="vector")
+plotRefToTarget(mshapesouth, mshapesubtropicus, method="vector")
+plotRefToTarget(mshapenorth, mshapesouth, method="vector")
 
-#ALLOMETRY PLOT
 
 
 
+#ProcANOVA of environmental and geophysical variables on shape (Table 2)
+
+
+fitshapelat<-procD.lm(gdfantepop$coords~Latitude, data = gdfantepop, effect.type = "F")
+summary(fitshapelat)
+
+fitshapelon<-procD.lm(gdfantepop$coords~Longitude, data = gdfantepop, effect.type = "F")
+summary(fitshapelon)
+
+lmsizelat<-lm(gdfantepop$csize~gdfantepop$Latitude)
+anova(lmsizelat)
+summary(lmsizelat)
+
+lmsizelon<-lm(gdfantepop$csize~gdfantepop$Longitude)
+anova(lmsizelon)
+summary(lmsizelon)
+
+fitshapetempmain <- procD.lm(coords~tempworldclim, data = gdfantepop, effect.type = "F")
+summary(fitshapetempmain)
+
+fitshapeppmain <- procD.lm(coords~ppworldclim, data = gdfantepop, effect.type = "F")
+summary(fitshapeppmain)
+
+lmsizetempmain <- lm(gdfantepop$csize~gdfantepop$tempworldclim)
+anova(lmsizetempmain)
+summary(lmsizetempmain)
+
+lmsizeppmain <- lm(gdfantepop$csize~gdfantepop$ppworldclim)
+anova(lmsizeppmain)
+summary(lmsizeppmain)
+
+fitshapedistwatermain <- procD.lm(coords~distanceTowater, data = gdfantepop, effect.type = "F")
+summary(fitshapedistwatermain)
+
+lmsizedistwatermain <- lm(gdfantepop$csize~gdfantepop$distanceTowater)
+anova(lmsizedistwatermain)
+summary(lmsizedistwatermain)
+
+fitshapeelevmain <- procD.lm(coords~elevation, data = gdfantepop, effect.type = "F")
+summary(fitshapeelevmain)
+
+lmsizeelevmain <- lm(gdfantepop$csize~gdfantepop$elevation)
+anova(lmsizeelevmain)
+summary(lmsizeelevmain)
 
 
 
 ```
 
 
-JM21530.pts<-A_reorder[,,"JM21530"]
+JM19758.pts<-A_reorder[,,"JM19758"]
 open3d()
-spheres3d(JM21530.pts,radius = 0.2,col = 1)
-text3d(JM21530.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
+spheres3d(JM19758.pts,radius = 0.2,col = 1)
+text3d(JM19758.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
 
 
 CM3795.pts<-A_reorder[,,"CM3795"]
