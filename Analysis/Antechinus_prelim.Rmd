@@ -118,10 +118,10 @@ summary(PCAante)
 cols<-brewer.pal(n=5,name="Set1")
 cols_dat<-cols[gdfante$Population]
 
-PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,34], col = cols_dat, pch = c(16:17)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.58%)", ylab="Principal Component 2 (8.39%)")
-text(PCAante$pc.scores[,1], PCAante$pc.scores[,34], labels=gdfante$ID, pos=4)
+PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (20.16%)", ylab="Principal Component 2 (8.53%)")
+text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$Sex, pos=4)
 #need to correct legend
-legend(0.04, 0.02, legend=paste(rep(c("Female","Male"), times=2), rep(c("subtropicus","stuartii"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
+legend(0.04, 0.02, legend=paste(rep(c("Female","Male"), times=2), rep(c("subtropicus","stuartii south", "stuartii north"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
 
 
 #ggplot PCA (nicer)
@@ -132,7 +132,7 @@ doubt <- gdfante$doubt
 dataPCA <- data.frame(PCAante$pc.scores[,1], PCAante$pc.scores[,2], Population, Sex)
 
 plotPCA <- ggplot(dataPCA, aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., colour = Population, shape = Sex)) +
-  labs(x = "PC 1 (18.74%)", y = "PC 2 (8.25%)") +
+  labs(x = "PC 1 (20.16%)", y = "PC 2 (8.53%)") +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
@@ -200,7 +200,7 @@ Sexpop <- gdfantepop$Sex
 dataPCApop <- data.frame(PCAantepop$pc.scores[,1], PCAantepop$pc.scores[,2], Populationpop, Sexpop)
 
 plotPCApop <- ggplot(dataPCApop, aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop, shape = Sexpop)) +
-  labs(x = "PC 1 (18.74%)", y = "PC 2 (8.25%)") +
+  labs(x = "PC 1 (23.3%)", y = "PC 2 (8.84%)") +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
@@ -219,8 +219,8 @@ summary(lm(gdfante$Csize~PCAante$pc.scores[,3]))
 
 # Allometry figure 
 
-fit.sizepop <- procD.lm(f1 = coords~Csize, data = gdfantepop, print.progress = FALSE)
-fit.size.plotpop <- plotAllometry(fit.sizepop, size = gdfantepop$Csize, logsz = FALSE, method = "RegScore", pch = 19, col = as.numeric(gdfantepop$Population), cex = 3)
+fit.sizepop <- procD.lm(f1 = coords~csize, data = gdfantepop, print.progress = FALSE)
+fit.size.plotpop <- plotAllometry(fit.sizepop, size = gdfantepop$csize, logsz = FALSE, method = "RegScore", pch = 19, col = as.numeric(gdfantepop$Population), cex = 3)
 anova(fit.size)
 
 dataallometryplotpop <- data.frame(fit.size.plotpop$size.var, fit.size.plotpop$RegScore, Populationpop, Sexpop)
@@ -241,14 +241,26 @@ anova(fitpop)
 #yes, which ones are different?
 
 PWpop <- pairwise(fitpop, groups = gdfantepop$Population)
-PWpop.sum <- summary(PWpop, test.type = "var")
+PWpop.sum <- summary(PWpop, test.type = "dist")
 PWpop.sum$summary.table
 
 disparitypops <- morphol.disparity(fitpop, groups = ~ Population, data = gdfantepop, iter = 999)
 summary(disparitypops)
 
 
+fitsizepop <- procD.lm(csize~Population, data = gdfantepop, iter = 999, effect.type = "F")
+summary(fitsizepop)
+PWsizepop<- pairwise(fitsizepop, groups = gdfantepop$Population)
 
+sumPWsizepop <- summary(PWsizepop, test.type = "dist", confidence = 0.95, stat.table = FALSE)
+sumPWsizepop
+
+fitsizesex <- procD.lm(csize~Sex, data = gdfantepop, iter = 999, effect.type = "F")
+summary(fitsizesex)
+PWsizesex<- pairwise(fitsizesex, groups = gdfantepop$Sex)
+
+sumPWsizesex <- summary(PWsizesex, test.type = "dist", confidence = 0.95, stat.table = FALSE)
+sumPWsizesex
 
 
 colswes <- wes_palette("Darjeeling1")
@@ -321,16 +333,16 @@ summary(lmsizeelevmain)
 ```
 
 
-JM19758.pts<-A_reorder[,,"JM19758"]
+MR3.pts<-A_reorder[,,"MR3"]
 open3d()
-spheres3d(JM19758.pts,radius = 0.2,col = 1)
-text3d(JM19758.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
+spheres3d(MR3.pts,radius = 0.2,col = 1)
+text3d(MR3.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
 
 
-CM3795.pts<-A_reorder[,,"CM3795"]
+MRG4.pts<-A_reorder[,,"MRG4"]
 open3d()
-spheres3d(CM3795.pts,radius = 0.2,col = 1)
-text3d(CM3795.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
+spheres3d(MRG4.pts,radius = 0.2,col = 1)
+text3d(MRG4.pts, texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
 
 
 
