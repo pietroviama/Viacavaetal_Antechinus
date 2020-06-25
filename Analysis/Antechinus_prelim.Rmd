@@ -66,9 +66,12 @@ match(names_Areorder, names_classifier)
 #CLEANED VERY ROUGHLY, RECHECK SPECIMENS THAT CAN BE INCLUDED IN THE ANALYSIS
 A_reorder <- A_reorder[,,-which(antechinusdata$Age=="Juvenile?")]
 A_reorder <- A_reorder[,,-which(antechinusdata$Population=="adustus?")]
+A_reorder <- A_reorder[,,-which(antechinusdata$Population=="agilis?")]
+
 
 antechinusdata <- antechinusdata[-which(antechinusdata$Age=="Juvenile?"),]
 antechinusdata <- antechinusdata[-which(antechinusdata$Population=="adustus?"),]
+antechinusdata <- antechinusdata[-which(antechinusdata$Population=="agilis?"),]
 antechinusdata <- droplevels(antechinusdata)
 
 #####DO THAT######
@@ -115,13 +118,13 @@ PCAante <- plotTangentSpace(gdfante$coords, warpgrids = FALSE, mesh = FALSE, gro
 
 summary(PCAante)
 
-cols<-brewer.pal(n=5,name="Set1")
+cols<-brewer.pal(n=4,name="Set1")
 cols_dat<-cols[gdfante$Population]
 
-PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (20.16%)", ylab="Principal Component 2 (8.53%)")
-text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$Sex, pos=4)
+PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (20.14%)", ylab="Principal Component 2 (8.54%)")
+#text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$ID, pos=4)
 #need to correct legend
-legend(0.04, 0.02, legend=paste(rep(c("Female","Male"), times=2), rep(c("subtropicus","stuartii south", "stuartii north"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
+#legend(0.04, 0.02, legend=paste(rep(c("Female","Male","unknown"), times=2), rep(c("subtropicus","stuartii south", "stuartii north"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
 
 
 #ggplot PCA (nicer)
@@ -132,16 +135,76 @@ doubt <- gdfante$doubt
 dataPCA <- data.frame(PCAante$pc.scores[,1], PCAante$pc.scores[,2], Population, Sex)
 
 plotPCA <- ggplot(dataPCA, aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., colour = Population, shape = Sex)) +
-  labs(x = "PC 1 (20.16%)", y = "PC 2 (8.53%)") +
+  labs(x = "PC 1 (20.14%)", y = "PC 2 (8.54%)") +
+  scale_color_manual(values = c("grey", "red", "blue", "darkgreen")) +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
 
 plot(plotPCA)
 
-#SAME but without population identity doubts
+#Sex analysis
 
-#CLEANED VERY ROUGHLY, RECHECK SPECIMENS THAT CAN BE INCLUDED IN THE ANALYSIS
+A_reordersex <- A_reorder[,,-which(antechinusdata$Sex=="Unknown")]
+
+antechinusdatasex <- antechinusdata[-which(antechinusdata$Sex=="Unknown"),]
+antechinusdatasex <- droplevels(antechinusdatasex)
+
+
+gpaallsex<-gpagen(A_reordersex, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
+                   max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+
+gdfantesex <- geomorph.data.frame(gpaallsex, Species = antechinusdatasex$Species, Population = antechinusdatasex$Population, ID = antechinusdatasex$ID, Sex = antechinusdatasex$Sex, Latitude = antechinusdatasex$Latitude, Longitude = antechinusdatasex$Longitude, Altitude = antechinusdatasex$Altitude, Dat_coll = antechinusdatasex$Date.collected, Collection = antechinusdatasex$Collection, doubt = antechinusdatasex$doubt) 
+
+#Are sexes different in shape?
+
+fit.shapesex <- procD.lm(coords~Sex, data = gdfantesex, effect.type = "F")
+summary(fit.shapesex)
+#yes
+
+#Is there a common allometry or are there unique allometries across sexes? 
+
+fit.sex.uni <- procD.lm(f1 = coords~Csize*Sex, data = gdfantesex, effect.type = "F")
+summary(fit.sex.uni)
+#common allometric relationship
+
+#Are there shape differences between sexes after correcting for size? 
+
+fit.sex <- procD.lm(f1 = coords~Csize+Sex, data = gdfantesex, effect.type = "F")
+summary(fit.sex)
+
+#Are sexes different in Centroid Size (proxy for size)? (Table 1)
+
+lmsizesex <- lm(gdfantesex$Csize~gdfantesex$Sex)
+anova(lmsizesex)
+summary(lmsizesex)
+
+#sex boxplot
+
+df.antesex <- data.frame(gdfantesex$Csize, gdfantesex$Sex)
+
+Sexbplot <- ggplot(df.antesex, 
+                       aes(x = gdfantesex.Sex, 
+                           y = gdfantesex.Csize, 
+                           fill = gdfantesex.Sex)) +
+  scale_fill_manual(values = c("yellow4", "purple4")) +
+  labs(x= NULL, y= "Centroid Size",
+       title= NULL) +
+  geom_boxplot() +
+  geom_point() +
+  theme_classic() +
+  theme(legend.position = "none", axis.text.x = element_text(size = 25), axis.text.y = element_text(size = 15), axis.title.y = element_text(size=25))
+
+plot(Sexbplot)
+
+
+
+
+
+#exclude dubious population identities
+#(RECHECK SPECIMENS THAT CAN STILL BE INCLUDED IN THE ANALYSIS (ANDREW COULD HELP))
+
+
 A_reorderpop <- A_reorder[,,-which(antechinusdata$Population=="?")]
 
 antechinusdatapop <- antechinusdata[-which(antechinusdata$Population=="?"),]
@@ -153,6 +216,7 @@ gpaallpop<-gpagen(A_reorderpop, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
 
 
 #include precipitation and temperature data from worldclim
+
 
 rclim<- getData("worldclim",var="bio",res=10) #run in console
 

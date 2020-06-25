@@ -136,7 +136,7 @@ stuartii,south,QM,JM21530,Male,Adult,"Private Property - New England NP, near th
 stuartii,?,QM,JM21536,Female,Adult,"Armidale - Kempsey Rd New England NP, ne NSW, 30�37'55""S 152�11'50""E (EH16)",-30.632,152.197,941,"E. Mason, E. Gray",15/05/2014,ok,ok,ok,ok,,o,EH16
 subtropicus,subtropicus,QM,JM2205,Female,Adult,"Mt Glorious 27�20'S, 152�46'E",-27.333,152.767,572,S. Van Dyck,2/09/1976,ok,ok,ok,ok,,o,MtGl
 subtropicus,subtropicus,QM,JM24,Male,Adult,Mt Glorious SEQ,-27.333,152.767,572,R. Braithwaite,25/06/1972,ok,ok,ok,ok,,o,
-subtropicus,?,QM,JM2935,Female,Adult,Brindabellas,,,,C. Dickman,_,ok,ok,ok,ok,agilis? Subtropicus?,x,"qm or bust - but this will be an agilis!! If locality is correct, it should be omitted from your analysis"
+subtropicus,agilis?,QM,JM2935,Female,Adult,Brindabellas,,,,C. Dickman,_,ok,ok,ok,ok,agilis? Subtropicus?,x,"qm or bust - but this will be an agilis!! If locality is correct, it should be omitted from your analysis"
 subtropicus,subtropicus,QM,JM37,Female,Adult,Mt Glorious,-27.333,152.767,572,R. Braithwaite,20/09/1971,ok,ok,ok,ok,,o,
 stuartii,?,QM,JM3944,Male,Adult,Wollumbin N. NSW,-28.417,153.233,203,NA,21/07/1977,ok,ok,ok,ok,subtropicus? North?,x,
 subtropicus,?,QM,JM4432,Female,Adult,11 km SW Uki NSW,-28.467,153.233,146,A. Gilmore,21/03/1984,ok,ok,ok,ok,subtropicus?,x,Male?
