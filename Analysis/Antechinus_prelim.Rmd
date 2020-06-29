@@ -22,9 +22,12 @@ library(sp)
 library(MASS)
 library(RColorBrewer)
 library(shapes)
-library(wesanderson)
-library(magick)
+library(ALA4R)
 
+if(!require(devtools)) install.packages("devtools")
+library(devtools)
+devtools::install_github("TGuillerme/landvR")
+library(landvR)
 
 ```
 
@@ -64,14 +67,9 @@ names_Areorder <- dimnames(A_reorder)[[3]]
 match(names_Areorder, names_classifier)
 
 #CLEANED VERY ROUGHLY, RECHECK SPECIMENS THAT CAN BE INCLUDED IN THE ANALYSIS
-A_reorder <- A_reorder[,,-which(antechinusdata$Age=="Juvenile?")]
-A_reorder <- A_reorder[,,-which(antechinusdata$Population=="adustus?")]
-A_reorder <- A_reorder[,,-which(antechinusdata$Population=="agilis?")]
+A_reorder <- A_reorder[,,-c(which(antechinusdata$Age=="Juvenile?"), which(antechinusdata$Population=="adustus?"), which(antechinusdata$Population=="agilis?"), which(antechinusdata$ID=="CM3642"))]
 
-
-antechinusdata <- antechinusdata[-which(antechinusdata$Age=="Juvenile?"),]
-antechinusdata <- antechinusdata[-which(antechinusdata$Population=="adustus?"),]
-antechinusdata <- antechinusdata[-which(antechinusdata$Population=="agilis?"),]
+antechinusdata <- antechinusdata[-c(which(antechinusdata$Age=="Juvenile?"), which(antechinusdata$Population=="adustus?"), which(antechinusdata$Population=="agilis?"), which(antechinusdata$ID=="CM3642")),]
 antechinusdata <- droplevels(antechinusdata)
 
 #####DO THAT######
@@ -118,10 +116,10 @@ PCAante <- plotTangentSpace(gdfante$coords, warpgrids = FALSE, mesh = FALSE, gro
 
 summary(PCAante)
 
-cols<-brewer.pal(n=4,name="Set1")
+cols<-brewer.pal(n=5,name="Set1")
 cols_dat<-cols[gdfante$Population]
 
-PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (20.14%)", ylab="Principal Component 2 (8.54%)")
+PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.68%)", ylab="Principal Component 2 (8.55%)")
 #text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$ID, pos=4)
 #need to correct legend
 #legend(0.04, 0.02, legend=paste(rep(c("Female","Male","unknown"), times=2), rep(c("subtropicus","stuartii south", "stuartii north"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
@@ -131,12 +129,11 @@ PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat
 
 Population <- gdfante$Population
 Sex <- gdfante$Sex
-doubt <- gdfante$doubt
 dataPCA <- data.frame(PCAante$pc.scores[,1], PCAante$pc.scores[,2], Population, Sex)
 
 plotPCA <- ggplot(dataPCA, aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., colour = Population, shape = Sex)) +
-  labs(x = "PC 1 (20.14%)", y = "PC 2 (8.54%)") +
-  scale_color_manual(values = c("grey", "red", "blue", "darkgreen")) +
+  labs(x = "PC 1 (19.68%)", y = "PC 2 (8.55%)") +
+  scale_color_manual(values = c("grey", "red", "blue", "darkgreen", "orange")) +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
@@ -155,6 +152,24 @@ gpaallsex<-gpagen(A_reordersex, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
                    max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
 
 gdfantesex <- geomorph.data.frame(gpaallsex, Species = antechinusdatasex$Species, Population = antechinusdatasex$Population, ID = antechinusdatasex$ID, Sex = antechinusdatasex$Sex, Latitude = antechinusdatasex$Latitude, Longitude = antechinusdatasex$Longitude, Altitude = antechinusdatasex$Altitude, Dat_coll = antechinusdatasex$Date.collected, Collection = antechinusdatasex$Collection, doubt = antechinusdatasex$doubt) 
+
+#PCA sex
+
+PCAantesex <- plotTangentSpace(gdfantesex$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantesex$Sex)
+summary(PCAantesex)
+
+Sex <- gdfantesex$Sex
+dataPCAsex <- data.frame(PCAantesex$pc.scores[,1], PCAantesex$pc.scores[,2], Sex)
+
+plotPCAsex <- ggplot(dataPCAsex, aes(x=PCAantesex.pc.scores...1., y=PCAantesex.pc.scores...2., colour = Sex, shape = Sex)) +
+  labs(x = "PC 1 (19.9%)", y = "PC 2 (8.4%)") +
+  scale_color_manual(values = c("yellow4", "purple4")) +
+  geom_point(size = 8, alpha = 0.8) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
+
+plot(plotPCAsex)
+
 
 #Are sexes different in shape?
 
@@ -205,9 +220,9 @@ plot(Sexbplot)
 #(RECHECK SPECIMENS THAT CAN STILL BE INCLUDED IN THE ANALYSIS (ANDREW COULD HELP))
 
 
-A_reorderpop <- A_reorder[,,-which(antechinusdata$Population=="?")]
+A_reorderpop <- A_reorder[,,-c(which(antechinusdata$Population=="?"), which(antechinusdata$Population=="subtropicus holotype"))]
 
-antechinusdatapop <- antechinusdata[-which(antechinusdata$Population=="?"),]
+antechinusdatapop <- antechinusdata[-c(which(antechinusdata$Population=="?"), which(antechinusdata$Population=="subtropicus holotype")),]
 antechinusdatapop <- droplevels(antechinusdatapop)
 
 
@@ -236,10 +251,9 @@ dfwtemppop
 
 
 antegps <- data.frame(antechinusdatapop$Latitude, antechinusdatapop$Longitude)
-evariables <- c("cl620", "cl618", "el830", "el1077", "el674")
+evariables <- c("el830", "el674")
 retrieved.evariables <- intersect_points(antegps, evariables)
-retrieved.evariables$vegetationTypesPresent<-as.factor(retrieved.evariables$vegetationTypesPresent)
-retrieved.evariables$landCover<-as.factor(retrieved.evariables$landCover)
+
 retrieved.evariables$distanceToPermanentWaterWeighted[is.na(retrieved.evariables$distanceToPermanentWaterWeighted)]<-0
 retrieved.evariables$elevation[is.na(retrieved.evariables$elevation)]<-0
 
@@ -249,53 +263,65 @@ antechinusdatapop$elevation <- retrieved.evariables$elevation
 
 #frame data for geomorph
 
-gdfantepop <- geomorph.data.frame(coords = gpaallpop$coords, csize = gpaallpop$Csize, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
+gdfantepop <- geomorph.data.frame(coords = gpaallpop$coords, Csize = gpaallpop$Csize, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
                            ppworldclim = dfwtemppop$Prec, tempworldclim = dfwtemppop$Temp, Age = antechinusdatapop$Age, doubt = antechinusdatapop$doubt, distanceTowater = antechinusdatapop$distanceTowater, elevation = antechinusdatapop$elevation) 
 
-PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantepop$Population, legend = gdfantepop$ID)
+PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = TRUE, mesh = TRUE, groups = gdfantepop$Population, legend = gdfantepop$Population)
 
 summary(PCAantepop)
 
-colspop<-brewer.pal(n=3,name="Set2")
-cols_datpop<-cols[gdfantepop$Population]
 
 Populationpop <- gdfantepop$Population
 Sexpop <- gdfantepop$Sex
 dataPCApop <- data.frame(PCAantepop$pc.scores[,1], PCAantepop$pc.scores[,2], Populationpop, Sexpop)
 
 plotPCApop <- ggplot(dataPCApop, aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop, shape = Sexpop)) +
-  labs(x = "PC 1 (23.3%)", y = "PC 2 (8.84%)") +
+  labs(x = "PC 1 (22.87%)", y = "PC 2 (8.93%)") +
+  scale_color_manual(values = c("red", "blue", "darkgreen")) +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
 
 plot(plotPCApop)
 
-
 ###########
 ##########
 #############
 
-summary(lm(gdfante$Csize~PCAante$pc.scores[,1]))
-summary(lm(gdfante$Csize~PCAante$pc.scores[,2]))
-summary(lm(gdfante$Csize~PCAante$pc.scores[,3]))
-
+summary(lm(gdfantepop$Csize~PCAantepop$pc.scores[,1]))
+summary(lm(gdfantepop$Csize~PCAantepop$pc.scores[,2]))
+summary(lm(gdfantepop$Csize~PCAantepop$pc.scores[,3]))
 
 # Allometry figure 
 
-fit.sizepop <- procD.lm(f1 = coords~csize, data = gdfantepop, print.progress = FALSE)
-fit.size.plotpop <- plotAllometry(fit.sizepop, size = gdfantepop$csize, logsz = FALSE, method = "RegScore", pch = 19, col = as.numeric(gdfantepop$Population), cex = 3)
-anova(fit.size)
+fit.sizepop <- procD.lm(f1 = coords~Csize, data = gdfantepop, print.progress = FALSE)
+fit.size.plotpop <- plotAllometry(fit.sizepop, size = gdfantepop$Csize, logsz = FALSE, method = "RegScore", pch = 19, col = as.numeric(gdfantepop$Population), cex = 3)
+anova(fit.sizepop)
 
 dataallometryplotpop <- data.frame(fit.size.plotpop$size.var, fit.size.plotpop$RegScore, Populationpop, Sexpop)
 
 plotallompop <- ggplot(dataallometryplotpop, aes(x=fit.size.plotpop.size.var, y=fit.size.plotpop.RegScore, colour = Populationpop, shape = Sexpop)) +
   labs(x = "Centroid Size", y = "Shape Score") +
+    scale_color_manual(values = c("red", "blue", "darkgreen")) +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
 
 plot(plotallompop)
+
+
+
+
+#Is there a common allometry or are there unique allometries across sexes? 
+
+fit.pop.uni <- procD.lm(f1 = coords~Csize*Population, data = gdfantepop, effect.type = "F")
+summary(fit.pop.uni)
+#common allometric relationship
+
+#Are there shape differences between sexes after correcting for size? 
+
+fit.sizeadj.pop <- procD.lm(f1 = coords~Csize+Population, data = gdfantepop, effect.type = "F")
+summary(fit.sizeadj.pop)
 
 #Are populations different in shape?
 
@@ -305,33 +331,63 @@ anova(fitpop)
 #yes, which ones are different?
 
 PWpop <- pairwise(fitpop, groups = gdfantepop$Population)
-PWpop.sum <- summary(PWpop, test.type = "dist")
-PWpop.sum$summary.table
+PWpop.sum <- summary(PWpop, test.type = "dist", confidence = 0.95, stat.table = FALSE)
+PWpop.sum
+
+#Bonferroni correction
+PW1.pvals <- PWpop.sum$pairwise.tables$P[c(2,3,6)]
+PW1.pvals.adj <- p.adjust(PW1.pvals, "bonferroni")
+PW1.pvals.adj
+
+#disparity differences
 
 disparitypops <- morphol.disparity(fitpop, groups = ~ Population, data = gdfantepop, iter = 999)
 summary(disparitypops)
 
 
-fitsizepop <- procD.lm(csize~Population, data = gdfantepop, iter = 999, effect.type = "F")
+fitsizepop <- procD.lm(Csize~Population, data = gdfantepop, iter = 999, effect.type = "F")
 summary(fitsizepop)
 PWsizepop<- pairwise(fitsizepop, groups = gdfantepop$Population)
 
 sumPWsizepop <- summary(PWsizepop, test.type = "dist", confidence = 0.95, stat.table = FALSE)
 sumPWsizepop
 
-fitsizesex <- procD.lm(csize~Sex, data = gdfantepop, iter = 999, effect.type = "F")
-summary(fitsizesex)
-PWsizesex<- pairwise(fitsizesex, groups = gdfantepop$Sex)
 
-sumPWsizesex <- summary(PWsizesex, test.type = "dist", confidence = 0.95, stat.table = FALSE)
-sumPWsizesex
+#population size boxplot
 
+df.antepop <- data.frame(gdfantepop$Csize, gdfantepop$Population)
 
-colswes <- wes_palette("Darjeeling1")
+Popbplot <- ggplot(df.antepop, 
+                      aes(x = reorder(gdfantepop.Population, gdfantepop.Csize, FUN = median), 
+                           y = gdfantepop.Csize, 
+                           fill = gdfantepop.Population)) +
+  scale_fill_manual(values = c("red", "blue", "darkgreen")) +
+  labs(x= NULL, y= "Centroid Size",
+       title= NULL) +
+  geom_boxplot() +
+  geom_point() +
+  theme_classic() +
+  theme(legend.position = "none", axis.text.x = element_text(size = 25), axis.text.y = element_text(size = 15), axis.title.y = element_text(size=25))
 
-names(colswes) <- levels(gdfantepop$Population ) # assign levels to colours
-col.gp <- colswes[match(gdfantepop$Population, names(colswes))] # magic!
-head(col.gp)
+plot(Popbplot)
+
+#heatmaps
+
+femalecoords <- gdfantesex$coords[,,which(gdfantesex$Sex=="Female")]
+mshapefemale <- mshape(femalecoords)
+malecoords <- gdfantesex$coords[,,which(gdfantesex$Sex=="Male")]
+mshapemale <- mshape(malecoords)
+
+mshapefemalemale <- coordinates.difference(mshapefemale, mshapemale, type = "spherical")
+procrustes.var.plot(mshapefemale, mshapemale, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshapefemalemale[[1]][,"radius"])
+
+G34.ply <- read.ply(file = "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusAll3Dmodels/G34.ply")
+
+femalewarp <- warpRefMesh(G34.ply, mesh.coord = gdfantesex$coords[,,which(gdfantesex$ID=="G34")], ref = mshapefemale)
+
+malewarp <- warpRefMesh(G34.ply, mesh.coord = gdfantesex$coords[,,which(gdfantesex$ID=="G34")], ref = mshapemale)
+
+#populations
 
 northcoords <- gdfantepop$coords[,,which(gdfantepop$Population=="north")]
 mshapenorth <- mshape(northcoords)
@@ -340,10 +396,39 @@ mshapesouth <- mshape(southcoords)
 subtropicuscoords <- gdfantepop$coords[,,which(gdfantepop$Population=="subtropicus")]
 mshapesubtropicus <- mshape(subtropicuscoords)
 
-plotRefToTarget(mshapenorth, mshapesubtropicus, method="vector")
-plotRefToTarget(mshapesouth, mshapesubtropicus, method="vector")
-plotRefToTarget(mshapenorth, mshapesouth, method="vector")
+#northwarp <- warpRefMesh(G34.ply, mesh.coord = gdfantepop$coords[,,which(gdfantepop$ID=="G34")], ref = mshapenorth)
+#rgl.viewpoint(10, 60, fov = 0, zoom = 0.5)
+#rgl.snapshot("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/mshapenorth", fmt = "png")
 
+
+
+
+plotRefToTarget(mshapenorth, mshapesubtropicus, method="vector", gridPars=gridPar(pt.size=0.5))
+plotRefToTarget(mshapesouth, mshapesubtropicus, method="vector", gridPars=gridPar(pt.size=0.5))
+plotRefToTarget(mshapenorth, mshapesouth, method="vector", gridPars=gridPar(pt.size=0.5))
+
+mshapenorthsubtropicus <- coordinates.difference(mshapenorth, mshapesubtropicus, type = "spherical")
+mshapesouthsubtropicus <- coordinates.difference(mshapesouth, mshapesubtropicus, type = "spherical")
+mshapenorthsouth <- coordinates.difference(mshapenorth, mshapesouth, type = "spherical")
+
+procrustes.var.plot(mshapenorth, mshapesubtropicus, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshapenorthsubtropicus[[1]][,"radius"])
+
+procrustes.var.plot(mshapesouth, mshapesubtropicus, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshapesouthsubtropicus[[1]][,"radius"])
+
+procrustes.var.plot(mshapenorth, mshapesouth, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshapenorthsouth[[1]][,"radius"])
+
+#shape driven by PC1
+
+mshapePC1minmax<-coordinates.difference(PCAantepop$pc.shapes$PC1min,PCAantepop$pc.shapes$PC1max, type = "spherical")
+
+procrustes.var.plot(PCAantepop$pc.shapes$PC1min, PCAantepop$pc.shapes$PC1max, col = list(grDevices::heat.colors, "black"), col.val = mshapePC1minmax[[1]][,"radius"], col.range = c(0, 0.015), pt.size = 0.5)
+
+
+#shape driven by PC2
+
+mshapePC2minmax<-coordinates.difference(PCAantepop$pc.shapes$PC2min,PCAantepop$pc.shapes$PC2max, type = "spherical")
+
+procrustes.var.plot(PCAantepop$pc.shapes$PC2min, PCAantepop$pc.shapes$PC2max, col = list(grDevices::heat.colors, "black"), col.val = mshapePC2minmax[[1]][,"radius"], col.range = c(0, 0.015), pt.size = 0.5)
 
 
 
@@ -356,11 +441,11 @@ summary(fitshapelat)
 fitshapelon<-procD.lm(gdfantepop$coords~Longitude, data = gdfantepop, effect.type = "F")
 summary(fitshapelon)
 
-lmsizelat<-lm(gdfantepop$csize~gdfantepop$Latitude)
+lmsizelat<-lm(gdfantepop$Csize~gdfantepop$Latitude)
 anova(lmsizelat)
 summary(lmsizelat)
 
-lmsizelon<-lm(gdfantepop$csize~gdfantepop$Longitude)
+lmsizelon<-lm(gdfantepop$Csize~gdfantepop$Longitude)
 anova(lmsizelon)
 summary(lmsizelon)
 
@@ -370,25 +455,25 @@ summary(fitshapetempmain)
 fitshapeppmain <- procD.lm(coords~ppworldclim, data = gdfantepop, effect.type = "F")
 summary(fitshapeppmain)
 
-lmsizetempmain <- lm(gdfantepop$csize~gdfantepop$tempworldclim)
+lmsizetempmain <- lm(gdfantepop$Csize~gdfantepop$tempworldclim)
 anova(lmsizetempmain)
 summary(lmsizetempmain)
 
-lmsizeppmain <- lm(gdfantepop$csize~gdfantepop$ppworldclim)
+lmsizeppmain <- lm(gdfantepop$Csize~gdfantepop$ppworldclim)
 anova(lmsizeppmain)
 summary(lmsizeppmain)
 
 fitshapedistwatermain <- procD.lm(coords~distanceTowater, data = gdfantepop, effect.type = "F")
 summary(fitshapedistwatermain)
 
-lmsizedistwatermain <- lm(gdfantepop$csize~gdfantepop$distanceTowater)
+lmsizedistwatermain <- lm(gdfantepop$Csize~gdfantepop$distanceTowater)
 anova(lmsizedistwatermain)
 summary(lmsizedistwatermain)
 
 fitshapeelevmain <- procD.lm(coords~elevation, data = gdfantepop, effect.type = "F")
 summary(fitshapeelevmain)
 
-lmsizeelevmain <- lm(gdfantepop$csize~gdfantepop$elevation)
+lmsizeelevmain <- lm(gdfantepop$Csize~gdfantepop$elevation)
 anova(lmsizeelevmain)
 summary(lmsizeelevmain)
 
