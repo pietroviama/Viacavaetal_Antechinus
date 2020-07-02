@@ -23,6 +23,7 @@ library(MASS)
 library(RColorBrewer)
 library(shapes)
 library(ALA4R)
+library(ggsignif)
 
 if(!require(devtools)) install.packages("devtools")
 library(devtools)
@@ -112,7 +113,7 @@ You can also embed plots, for example:
 
 #PCA for all specimens
 
-PCAante <- plotTangentSpace(gdfante$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfante$Population, legend = gdfante$ID)
+PCAante <- plotTangentSpace(gdfante$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfante$Population, legend = gdfante$ID, label = gdfante$ID)
 
 summary(PCAante)
 
@@ -310,6 +311,21 @@ plotallompop <- ggplot(dataallometryplotpop, aes(x=fit.size.plotpop.size.var, y=
 plot(plotallompop)
 
 
+#shape changes associated with allometry 
+
+predshapesize <- shape.predictor(gpaallpop$coords, x=gpaallpop$Csize, Intercept = TRUE, predmin = min(gpaallpop$Csize), predmax = max(gpaallpop$Csize))
+
+allomshapediff <- coordinates.difference(predshapesize$predmin, predshapesize$predmax, type = "spherical")
+procrustes.var.plot(predshapesize$predmin, predshapesize$predmax, col = list(grDevices::heat.colors, "black"), allomshapediff[[1]][,"radius"], col.range = c(0, 0.015), pt.size = 0.5)
+
+
+tps3dallommin <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], predshapesize$predmin)
+tps3dallommax <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], predshapesize$predmax)
+
+warpmovie3d(tps3dallommin, tps3dallommax, n=15, col = "grey", palindrome = TRUE,
+            folder = "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/warp3dmovies", movie = "warpmovieallom", add = FALSE, close = TRUE,
+            countbegin = 0, ask = TRUE, radius = NULL, xland = NULL,
+            yland = NULL, lmcol = "black")
 
 
 #Is there a common allometry or are there unique allometries across sexes? 
@@ -365,6 +381,7 @@ Popbplot <- ggplot(df.antepop,
   labs(x= NULL, y= "Centroid Size",
        title= NULL) +
   geom_boxplot() +
+    stat_compare_means(comparisons = list(c("south", "north"), c("north","subtropicus"), c("south", "subtropicus")), label = "p.signif", method = "t.test") +
   geom_point() +
   theme_classic() +
   theme(legend.position = "none", axis.text.x = element_text(size = 25), axis.text.y = element_text(size = 15), axis.title.y = element_text(size=25))
@@ -387,6 +404,8 @@ femalewarp <- warpRefMesh(G34.ply, mesh.coord = gdfantesex$coords[,,which(gdfant
 
 malewarp <- warpRefMesh(G34.ply, mesh.coord = gdfantesex$coords[,,which(gdfantesex$ID=="G34")], ref = mshapemale)
 
+
+
 #populations
 
 northcoords <- gdfantepop$coords[,,which(gdfantepop$Population=="north")]
@@ -396,11 +415,40 @@ mshapesouth <- mshape(southcoords)
 subtropicuscoords <- gdfantepop$coords[,,which(gdfantepop$Population=="subtropicus")]
 mshapesubtropicus <- mshape(subtropicuscoords)
 
+
+#warp south vs north
+tps3dsouthnorth <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], mshapesouth)
+tps3dnorthsouth <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], mshapenorth)
+
+warpmovie3d(tps3dsouthnorth, tps3dnorthsouth, n=15, col = "grey", palindrome = TRUE,
+            folder = "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/warp3dmovies", movie = "warpmoviesouthnorth", add = FALSE, close = TRUE,
+            countbegin = 0, ask = TRUE, radius = NULL, xland = NULL,
+            yland = NULL, lmcol = "black")
+
+#warp north vs subtropicus
+
+tps3dnorthsub <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], mshapenorth)
+tps3dsubnorth <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], mshapesubtropicus)
+
+warpmovie3d(tps3dnorthsub, tps3dsubnorth, n=15, col = "grey", palindrome = TRUE,
+            folder = "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/warp3dmovies", movie = "warpmoviesubnorth", add = FALSE, close = TRUE,
+            countbegin = 0, ask = TRUE, radius = NULL, xland = NULL,
+            yland = NULL, lmcol = "black")
+
+#warp south vs subtropicus
+
+tps3dsouthsub <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], mshapesouth)
+tps3dsubsouth <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], mshapesubtropicus)
+
+warpmovie3d(tps3dsouthsub, tps3dsubsouth, n=15, col = "grey", palindrome = TRUE,
+            folder = "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/warp3dmovies", movie = "warpmoviesubsouth", add = FALSE, close = TRUE,
+            countbegin = 0, ask = TRUE, radius = NULL, xland = NULL,
+            yland = NULL, lmcol = "black")
+
+
 #northwarp <- warpRefMesh(G34.ply, mesh.coord = gdfantepop$coords[,,which(gdfantepop$ID=="G34")], ref = mshapenorth)
 #rgl.viewpoint(10, 60, fov = 0, zoom = 0.5)
 #rgl.snapshot("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/mshapenorth", fmt = "png")
-
-
 
 
 plotRefToTarget(mshapenorth, mshapesubtropicus, method="vector", gridPars=gridPar(pt.size=0.5))
@@ -423,6 +471,15 @@ mshapePC1minmax<-coordinates.difference(PCAantepop$pc.shapes$PC1min,PCAantepop$p
 
 procrustes.var.plot(PCAantepop$pc.shapes$PC1min, PCAantepop$pc.shapes$PC1max, col = list(grDevices::heat.colors, "black"), col.val = mshapePC1minmax[[1]][,"radius"], col.range = c(0, 0.015), pt.size = 0.5)
 
+#warp PC1min vs PC1max
+
+tps3dPC1minmax <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], PCAantepop$pc.shapes$PC1min)
+tps3dPC1maxmin <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], PCAantepop$pc.shapes$PC1max)
+
+warpmovie3d(tps3dPC1minmax, tps3dPC1maxmin, n=15, col = "grey", palindrome = TRUE,
+            folder = "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/warp3dmovies", movie = "tps3dPC1", add = FALSE, close = TRUE,
+            countbegin = 0, ask = TRUE, radius = NULL, xland = NULL,
+            yland = NULL, lmcol = "black")
 
 #shape driven by PC2
 
@@ -430,10 +487,17 @@ mshapePC2minmax<-coordinates.difference(PCAantepop$pc.shapes$PC2min,PCAantepop$p
 
 procrustes.var.plot(PCAantepop$pc.shapes$PC2min, PCAantepop$pc.shapes$PC2max, col = list(grDevices::heat.colors, "black"), col.val = mshapePC2minmax[[1]][,"radius"], col.range = c(0, 0.015), pt.size = 0.5)
 
+#warp PC2min vs PC2max
 
+tps3dPC2minmax <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], PCAantepop$pc.shapes$PC2min)
+tps3dPC2maxmin <- tps3d(G34.ply, A_reorder[,,which(antechinusdata$ID=="G34")], PCAantepop$pc.shapes$PC2max)
 
-#ProcANOVA of environmental and geophysical variables on shape (Table 2)
+warpmovie3d(tps3dPC2minmax, tps3dPC2maxmin, n=15, col = "grey", palindrome = TRUE,
+            folder = "C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Figures/warp3dmovies", movie = "tps3dPC2", add = FALSE, close = TRUE,
+            countbegin = 0, ask = TRUE, radius = NULL, xland = NULL,
+            yland = NULL, lmcol = "black")
 
+#ProcANOVA
 
 fitshapelat<-procD.lm(gdfantepop$coords~Latitude, data = gdfantepop, effect.type = "F")
 summary(fitshapelat)
@@ -441,13 +505,65 @@ summary(fitshapelat)
 fitshapelon<-procD.lm(gdfantepop$coords~Longitude, data = gdfantepop, effect.type = "F")
 summary(fitshapelon)
 
-lmsizelat<-lm(gdfantepop$Csize~gdfantepop$Latitude)
-anova(lmsizelat)
+lmsizelat<- procD.lm(Csize~Latitude, data = gdfantepop, iter = 999, effect.type = "F")
 summary(lmsizelat)
 
-lmsizelon<-lm(gdfantepop$Csize~gdfantepop$Longitude)
-anova(lmsizelon)
+lmsizelon<- procD.lm(Csize~Longitude, data = gdfantepop, iter = 999, effect.type = "F")
 summary(lmsizelon)
+
+
+#separate pops and do gpas on them
+gpasouth<-gpagen(A_reorder[,,c(which(antechinusdata$Population=="south"))], curves = NULL, surfaces = NULL, PrinAxes = TRUE, max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+antesouthlat <- antechinusdata$Latitude[c(which(antechinusdata$Population=="south"))]
+antesouthlon <- antechinusdata$Longitude[c(which(antechinusdata$Population=="south"))]
+
+gpanorth<-gpagen(A_reorder[,,c(which(antechinusdata$Population=="north"))], curves = NULL, surfaces = NULL, PrinAxes = TRUE, max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+antenorthlat <- antechinusdata$Latitude[c(which(antechinusdata$Population=="north"))]
+antenorthlon <- antechinusdata$Longitude[c(which(antechinusdata$Population=="north"))]
+
+gpasub<-gpagen(A_reorder[,,c(which(antechinusdata$Population=="subtropicus"))], curves = NULL, surfaces = NULL, PrinAxes = TRUE, max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+antesublat <- antechinusdata$Latitude[c(which(antechinusdata$Population=="subtropicus"))]
+antesublon <- antechinusdata$Longitude[c(which(antechinusdata$Population=="subtropicus"))]
+
+
+fitshapesouthlat<-procD.lm(gpasouth$coords~antesouthlat, effect.type = "F")
+summary(fitshapesouthlat)
+fitshapenorthlat<-procD.lm(gpanorth$coords~antenorthlat, effect.type = "F")
+summary(fitshapenorthlat)
+fitshapesublat<-procD.lm(gpasub$coords~antesublat, effect.type = "F")
+summary(fitshapesublat)
+
+
+fitsizesouthlat<-procD.lm(gpasouth$Csize~antesouthlat, effect.type = "F")
+summary(fitsizesouthlat)
+fitsizenorthlat<-procD.lm(gpanorth$Csize~antenorthlat, effect.type = "F")
+summary(fitsizenorthlat)
+fitsizesublat<-procD.lm(gpasub$Csize~antesublat, effect.type = "F")
+summary(fitsizesublat)
+
+
+
+
+fitshapesouthlon<-procD.lm(gpasouth$coords~antesouthlon, effect.type = "F")
+summary(fitshapesouthlon)
+fitshapenorthlon<-procD.lm(gpanorth$coords~antenorthlon, effect.type = "F")
+summary(fitshapenorthlon)
+fitshapesublon<-procD.lm(gpasub$coords~antesublon, effect.type = "F")
+summary(fitshapesublon)
+
+
+fitsizesouthlon<-procD.lm(gpasouth$Csize~antesouthlon, effect.type = "F")
+summary(fitsizesouthlon)
+fitsizenorthlon<-procD.lm(gpanorth$Csize~antenorthlon, effect.type = "F")
+summary(fitsizenorthlon)
+fitsizesublon<-procD.lm(gpasub$Csize~antesublon, effect.type = "F")
+summary(fitsizesublon)
+
+
+
+
+
+
 
 fitshapetempmain <- procD.lm(coords~tempworldclim, data = gdfantepop, effect.type = "F")
 summary(fitshapetempmain)
@@ -479,6 +595,78 @@ summary(lmsizeelevmain)
 
 
 
+```
+
+``` {r variation partitioning analysis on mainland specimens, include = TRUE}
+
+
+#Perform a PCA to overcome autocorrelation issues that may arise from geographic distances
+
+specgeodist <- data.frame(gdfante$Latitude,gdfmainland$Longitude)
+mat.specgeodist <- dist(specgeodist, method="euclidean", diag=F, upper=F)
+pcnm <- pcnm(mat.specgeodist)
+
+sum(pcnm$values[1:10]/sum(pcnm$values[1:24]))
+
+spat.data<-pcnm$vectors[,1:10]
+
+array2mat <- function(array,inds,vars){
+  if(class(array)=="matrix"){array<-array(array,dim=c(nrow(array),ncol(array),1))}
+  X1 <-aperm(array,c(3,2,1))
+  dim(X1)<- c(inds, vars)
+  if(!is.null(dimnames(array)[3])){rownames(X1)<-unlist(dimnames(array)[3])}else{rownames(X1)<-c(1:nrow(X1))}
+  return(X1)
+}
+
+
+mymat<-array2mat(gpamainland$coords,89,2700)
+
+
+
+### Figure 4: full variation partitioning model, from vegan library, test for constrained variation
+
+mainprectemp <- data.frame(gdfmainland$ppworldclim, gdfmainland$tempworldclim/10)
+
+matprectemp <- as.matrix(mainprectemp)
+
+matCsizemain <- gpamainland$Csize
+
+mod<-varpart(mymat,~spat.data, ~matCsizemain, ~matprectemp[,c(1:2)])
+
+showvarparts(3, bg = c("blue", "red", "black"), Xnames=c("Geography","Size","Climate"), cex = 2, id.size = 2)
+plot(mod, bg = c("blue", "red", "black"), Xnames=c("Geography","Size","Climate"), cex = 2, id.size = 2)
+
+full_rda<-vegan::rda(mymat~spat.data+matprectemp[,c(1:2)]+matCsizemain)### full model
+
+geo.rda<-vegan::rda(mymat~spat.data+Condition(matprectemp[,c(1:2)])+Condition(matCsizemain))### fraction variance of the variable
+
+clim.rda.shape<-vegan::rda(mymat~matprectemp[,c(1:2)]+Condition(spat.data)+Condition(matCsizemain))
+
+size.rda.shape<-vegan::rda(mymat~matCsizemain+Condition(spat.data)+Condition(matprectemp[,c(1:2)]))
+
+anova(full_rda)
+RsquareAdj(full_rda)
+
+anova(geo.rda)
+RsquareAdj(geo.rda)
+
+anova(clim.rda.shape)
+RsquareAdj(clim.rda.shape)
+
+anova(size.rda.shape)
+RsquareAdj(size.rda.shape)
+
+Eclim<-vegan::rda(mymat~matprectemp[,c(1:2)])
+anova(Eclim)
+RsquareAdj(Eclim)
+
+Egeo<-vegan::rda(mymat~spat.data)
+anova(Egeo)
+RsquareAdj(Egeo)
+
+Ecsize<-vegan::rda(mymat~matCsizemain)
+anova(Ecsize)
+RsquareAdj(Ecsize)
 ```
 
 

@@ -27,7 +27,7 @@ library(abind)
 
 ## import template mesh and landmark set
 
-subtropicus.holo<-file2mesh('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/Asubtropicus/J17407.ply',readcol=F,clean=T)
+subtropicus.holo<-file2mesh('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusAll3Dmodels/J17407.ply',readcol=F,clean=T)
 subtropicus.p<-(read.csv('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Templatecoords.csv', header = F))
 
 dim(subtropicus.p) 
