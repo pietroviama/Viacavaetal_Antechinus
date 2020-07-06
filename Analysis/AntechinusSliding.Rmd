@@ -59,7 +59,7 @@ spheres3d(template_array[232:376,,],radius = 0.1,col = 3) #patches 145
 text3d(template_array[1:376,,], texts = c(1:376), asp = FALSE, cex = 1, col="blue", pos = 3) #plot number of landmarks to check ordering
 
 #import landmark sets for all specimens
-LMcoords <- t(read.csv('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusTest/coords/Antechinus_LMcoords.csv', header = T, row.names = 1))
+LMcoords <- t(read.csv('C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Antechinus_LMcoords.csv', header = T, row.names = 1))
 dim(LMcoords)
 Ants <- arrayspecs(LMcoords, 82, 3) #convert into array
 dim(Ants)
@@ -83,15 +83,17 @@ Atlas<-createAtlas(subtropicus.holo,landmarks = fixed, patch = patch, patchCurve
 cols<-c("black","red","green","blue")
 plotAtlas(Atlas, pt.size=0.2, point = "s", legend = TRUE, cols = cols)
 
+#CHECK THIS: CURVES ONLY ON ATLAS BUT NO PATCH SEMILMS
+
 ```
 
 
 ```{r semilandmark placement}
 
-knitr::opts_knit$set(root.dir = 'Viacavaetal_Antechinus/Data/3Dmodels/AntechinusTest/meshes/', echo = TRUE)
+knitr::opts_knit$set(root.dir = 'Viacavaetal_Antechinus/Data/3Dmodels/AntechinusAll3Dmodels/', echo = TRUE)
 
 #Folder with all meshes
-Folder <- "../Data/3Dmodels/AntechinusTest/meshes"
+Folder <- "../Data/3Dmodels/AntechinusAll3Dmodels"
 
 #Navigate to folder with the subsample of ply files
 Plylist <- sub(".ply", "", list.files(Folder))
@@ -112,17 +114,17 @@ match(names_reorder, Plylist)
 
 dimnames(data_reorder)[[3]] == Plylist
 
-setwd("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusTest/meshes/") #does not work with Rmd, run separately
+setwd("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusAll3Dmodels/") #does not work with Rmd, run separately
 
-nma<-list.files(path="../Data/3Dmodels/AntechinusTest/meshes")
+nma<-list.files(path="../Data/3Dmodels/AntechinusAll3Dmodels")
 listo<-do.call(list,lapply(nma,function(x) file2mesh(x,readcol=F,clean=T)))
 
 #semilandmark placement in all specimenes
 
-lmplacement<-placePatch(Atlas, data_reorder, path="../Data/3Dmodels/AntechinusTest/", inflate=0.5) # use ray=TRUE for projection along surface normals instead of closest point???
+lmplacement<-placePatch(Atlas, data_reorder, path="../Data/3Dmodels/AntechinusAll3Dmodels/", inflate=0.5) # use ray=TRUE for projection along surface normals instead of closest point???
 
 #check good placement of semilandmarks in all specimens
-checkLM(lmplacement, path = "../Data/3Dmodels/AntechinusTest/", atlas=Atlas, point = "s", pt.size = 0.2)
+checkLM(lmplacement, path = "../Data/3Dmodels/AntechinusAll3Dmodels/", atlas=Atlas, point = "s", pt.size = 0.2)
 
 #CHECKING IF ORDER OF LANDMARKS IS FUCKED UP AND IF THAT'S ALSO FUCKING UP THE LANDMARK PLACEMENT ABOVE
 
@@ -135,9 +137,9 @@ text3d(Ants[,,1], texts = c(1:82), asp = FALSE, cex = 2, col="blue", pos = 3)
 
 ```{r checking placement and making curves equidistant}
 
-setwd("../Data/3Dmodels/AntechinusTest")
+setwd("../Data/3Dmodels/AntechinusAll3Dmodels")
 
-provo<-placePatch(Atlas,data_reorder,path="../Data/3Dmodels/AntechinusTest/meshes/",
+provo<-placePatch(Atlas,data_reorder,path="../Data/3Dmodels/AntechinusAll3Dmodels/",
                   inflate=0.5)
 
 

@@ -121,7 +121,7 @@ cols<-brewer.pal(n=5,name="Set1")
 cols_dat<-cols[gdfante$Population]
 
 PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.68%)", ylab="Principal Component 2 (8.55%)")
-#text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$ID, pos=4)
+text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$ID, pos=4)
 #need to correct legend
 #legend(0.04, 0.02, legend=paste(rep(c("Female","Male","unknown"), times=2), rep(c("subtropicus","stuartii south", "stuartii north"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
 
@@ -267,7 +267,7 @@ antechinusdatapop$elevation <- retrieved.evariables$elevation
 gdfantepop <- geomorph.data.frame(coords = gpaallpop$coords, Csize = gpaallpop$Csize, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
                            ppworldclim = dfwtemppop$Prec, tempworldclim = dfwtemppop$Temp, Age = antechinusdatapop$Age, doubt = antechinusdatapop$doubt, distanceTowater = antechinusdatapop$distanceTowater, elevation = antechinusdatapop$elevation) 
 
-PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = TRUE, mesh = TRUE, groups = gdfantepop$Population, legend = gdfantepop$Population)
+PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantepop$Population, legend = gdfantepop$Population)
 
 summary(PCAantepop)
 
@@ -596,13 +596,91 @@ summary(lmsizeelevmain)
 
 
 ```
+``` {r residual shape analyses, include = TRUE}
+
+#calculate residual shape
+
+fit.size <- procD.lm(f1 = coords~Csize, data = gdfante, print.progress = FALSE)
+
+main_residuals3D <- arrayspecs(fit.size$residuals, 82, 3)
+
+allom_resplusconsensus <- main_residuals3D + array(gpaall$consensus,dim(main_residuals3D))
+
+allom_resplusconsensuspop <- allom_resplusconsensus[,,-c(which(antechinusdata$Population=="?"), which(antechinusdata$Population=="subtropicus holotype"))]
+
+
+gparespop<-gpagen(allom_resplusconsensuspop, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
+                   max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+
+gdfresantepop <- geomorph.data.frame(coords = gparespop$coords, Csize = gparespop$Csize, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
+                           ppworldclim = dfwtemppop$Prec, tempworldclim = dfwtemppop$Temp, Age = antechinusdatapop$Age, doubt = antechinusdatapop$doubt, distanceTowater = antechinusdatapop$distanceTowater, elevation = antechinusdatapop$elevation) 
+
+PCAresantepop <- plotTangentSpace(gdfresantepop$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfresantepop$Population, legend = gdfresantepop$Population)
+
+summary(PCAresantepop)
+
+
+
+Populationpop <- gdfantepop$Population
+Sexpop <- gdfantepop$Sex
+dataPCArespop <- data.frame(PCAresantepop$pc.scores[,1], PCAresantepop$pc.scores[,2], Populationpop, Sexpop)
+
+plotPCArespop <- ggplot(dataPCArespop, aes(x=PCAresantepop.pc.scores...1., y=PCAresantepop.pc.scores...2., colour = Populationpop, shape = Sexpop)) +
+  labs(x = "PC 1 (16.08%)", y = "PC 2 (8.62%)") +
+  scale_color_manual(values = c("red", "blue", "darkgreen")) +
+  geom_point(size = 8, alpha = 0.8) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
+
+plot(plotPCArespop)
+
+#Are populations different in residual shape?
+
+fitpopres <- procD.lm(coords~Population, data = gdfresantepop, iter = 999, effect.type = "F")
+anova(fitpopres)
+
+#yes, which ones are different?
+
+PWpopres <- pairwise(fitpopres, groups = gdfresantepop$Population)
+PWpopres.sum <- summary(PWpopres, test.type = "dist", confidence = 0.95, stat.table = FALSE)
+PWpopres.sum
+
+#disparity differences on residual shape
+
+disparitypopsres <- morphol.disparity(fitpopres, groups = ~ Population, data = gdfresantepop, iter = 999)
+summary(disparitypopsres)
+
+# residual shapes of populations
+
+northrescoords <- gdfresantepop$coords[,,which(gdfresantepop$Population=="north")]
+mshapenorthres <- mshape(northrescoords)
+southrescoords <- gdfresantepop$coords[,,which(gdfresantepop$Population=="south")]
+mshapesouthres <- mshape(southrescoords)
+subtropicusrescoords <- gdfresantepop$coords[,,which(gdfresantepop$Population=="subtropicus")]
+mshapesubtropicusres <- mshape(subtropicusrescoords)
+
+
+mshaperessouthnorth <- coordinates.difference(mshapesouthres, mshapenorthres, type = "spherical")
+mshaperesnorthsubtropicus <- coordinates.difference(mshapenorthres, mshapesubtropicusres, type = "spherical")
+mshaperessouthsubtropicus <- coordinates.difference(mshapesouthres, mshapesubtropicusres, type = "spherical")
+
+procrustes.var.plot(mshapesouthres, mshapenorthres, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshaperessouthnorth[[1]][,"radius"])
+
+procrustes.var.plot(mshapenorthres, mshapesubtropicusres, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshaperesnorthsubtropicus[[1]][,"radius"])
+
+procrustes.var.plot(mshapesouthres, mshapesubtropicusres, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshaperessouthsubtropicus[[1]][,"radius"])
+
+
+
+
+```
+
 
 ``` {r variation partitioning analysis on mainland specimens, include = TRUE}
 
-
 #Perform a PCA to overcome autocorrelation issues that may arise from geographic distances
 
-specgeodist <- data.frame(gdfante$Latitude,gdfmainland$Longitude)
+specgeodist <- data.frame(gdfantepop$Latitude,gdfantepop$Longitude)
 mat.specgeodist <- dist(specgeodist, method="euclidean", diag=F, upper=F)
 pcnm <- pcnm(mat.specgeodist)
 
@@ -619,17 +697,17 @@ array2mat <- function(array,inds,vars){
 }
 
 
-mymat<-array2mat(gpamainland$coords,89,2700)
+mymat<-array2mat(gpaallpop$coords,129,246)
 
 
 
 ### Figure 4: full variation partitioning model, from vegan library, test for constrained variation
 
-mainprectemp <- data.frame(gdfmainland$ppworldclim, gdfmainland$tempworldclim/10)
+mainprectemp <- data.frame(gdfantepop$ppworldclim, gdfantepop$tempworldclim/10)
 
 matprectemp <- as.matrix(mainprectemp)
 
-matCsizemain <- gpamainland$Csize
+matCsizemain <- gpaallpop$Csize
 
 mod<-varpart(mymat,~spat.data, ~matCsizemain, ~matprectemp[,c(1:2)])
 
