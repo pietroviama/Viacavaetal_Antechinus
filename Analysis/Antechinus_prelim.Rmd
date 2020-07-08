@@ -455,15 +455,17 @@ plotRefToTarget(mshapenorth, mshapesubtropicus, method="vector", gridPars=gridPa
 plotRefToTarget(mshapesouth, mshapesubtropicus, method="vector", gridPars=gridPar(pt.size=0.5))
 plotRefToTarget(mshapenorth, mshapesouth, method="vector", gridPars=gridPar(pt.size=0.5))
 
+
+mshapesouthnorth <- coordinates.difference(mshapesouth, mshapenorth, type = "spherical")
 mshapenorthsubtropicus <- coordinates.difference(mshapenorth, mshapesubtropicus, type = "spherical")
 mshapesouthsubtropicus <- coordinates.difference(mshapesouth, mshapesubtropicus, type = "spherical")
-mshapenorthsouth <- coordinates.difference(mshapenorth, mshapesouth, type = "spherical")
 
-procrustes.var.plot(mshapenorth, mshapesubtropicus, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshapenorthsubtropicus[[1]][,"radius"])
+procrustes.var.plot(mshapesouth, mshapenorth, col = list(grDevices::heat.colors, "black"), pt.size = 1, col.val = mshapesouthnorth[[1]][,"radius"])
 
-procrustes.var.plot(mshapesouth, mshapesubtropicus, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshapesouthsubtropicus[[1]][,"radius"])
+procrustes.var.plot(mshapenorth, mshapesubtropicus, col = list(grDevices::heat.colors, "black"), pt.size = 1, col.val = mshapenorthsubtropicus[[1]][,"radius"])
 
-procrustes.var.plot(mshapenorth, mshapesouth, col = list(grDevices::heat.colors, "black"), pt.size = 0.5, col.val = mshapenorthsouth[[1]][,"radius"])
+procrustes.var.plot(mshapesouth, mshapesubtropicus, col = list(grDevices::heat.colors, "black"), pt.size = 1, col.val = mshapesouthsubtropicus[[1]][,"radius"])
+
 
 #shape driven by PC1
 

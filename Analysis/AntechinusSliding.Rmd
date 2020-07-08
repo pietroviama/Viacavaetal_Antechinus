@@ -116,12 +116,12 @@ dimnames(data_reorder)[[3]] == Plylist
 
 setwd("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusAll3Dmodels/") #does not work with Rmd, run separately
 
-nma<-list.files(path="../Data/3Dmodels/AntechinusAll3Dmodels")
+nma<-list.files(path="C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusAll3Dmodels")
 listo<-do.call(list,lapply(nma,function(x) file2mesh(x,readcol=F,clean=T)))
 
 #semilandmark placement in all specimenes
 
-lmplacement<-placePatch(Atlas, data_reorder, path="../Data/3Dmodels/AntechinusAll3Dmodels/", inflate=0.5) # use ray=TRUE for projection along surface normals instead of closest point???
+lmplacement<-placePatch(Atlas, data_reorder, path="C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/3Dmodels/AntechinusAll3Dmodels/", inflate=0.5) # use ray=TRUE for projection along surface normals instead of closest point???
 
 #check good placement of semilandmarks in all specimens
 checkLM(lmplacement, path = "../Data/3Dmodels/AntechinusAll3Dmodels/", atlas=Atlas, point = "s", pt.size = 0.2)
