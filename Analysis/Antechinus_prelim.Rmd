@@ -117,7 +117,7 @@ PCAante <- plotTangentSpace(gdfante$coords, warpgrids = FALSE, mesh = FALSE, gro
 
 summary(PCAante)
 
-cols<-brewer.pal(n=5,name="Set1")
+cols<-brewer.pal(n=6,name="Set1")
 cols_dat<-cols[gdfante$Population]
 
 PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.68%)", ylab="Principal Component 2 (8.55%)")
@@ -130,10 +130,14 @@ text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$ID, pos=4)
 
 Population <- gdfante$Population
 Sex <- gdfante$Sex
-dataPCA <- data.frame(PCAante$pc.scores[,1], PCAante$pc.scores[,2], Population, Sex)
+ID <- gdfante$ID
+Latitude <- gdfante$Latitude
+dataPCA <- data.frame(PCAante$pc.scores[,1], PCAante$pc.scores[,2], Population, Sex, ID, Latitude)
 
 plotPCA <- ggplot(dataPCA, aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., colour = Population, shape = Sex)) +
   labs(x = "PC 1 (19.68%)", y = "PC 2 (8.55%)") +
+  geom_text(data=dataPCA, 
+            aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., label = Latitude), position = position_jitter(width = 0.002, height = 0.002)) +
   scale_color_manual(values = c("grey", "red", "blue", "darkgreen", "orange")) +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
@@ -267,7 +271,7 @@ antechinusdatapop$elevation <- retrieved.evariables$elevation
 gdfantepop <- geomorph.data.frame(coords = gpaallpop$coords, Csize = gpaallpop$Csize, Species = antechinusdatapop$Species, Population = antechinusdatapop$Population, ID = antechinusdatapop$ID, Sex = antechinusdatapop$Sex, Latitude = antechinusdatapop$Latitude, Longitude = antechinusdatapop$Longitude, Altitude = antechinusdatapop$Altitude, Dat_coll = antechinusdatapop$Date.collected, Collection = antechinusdatapop$Collection,
                            ppworldclim = dfwtemppop$Prec, tempworldclim = dfwtemppop$Temp, Age = antechinusdatapop$Age, doubt = antechinusdatapop$doubt, distanceTowater = antechinusdatapop$distanceTowater, elevation = antechinusdatapop$elevation) 
 
-PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantepop$Population, legend = gdfantepop$Population)
+PCAantepop <- plotTangentSpace(gdfantepop$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantepop$Population, legend = gdfantepop$Population, label = gdfantepop$ID)
 
 summary(PCAantepop)
 
@@ -276,10 +280,11 @@ Populationpop <- gdfantepop$Population
 Sexpop <- gdfantepop$Sex
 dataPCApop <- data.frame(PCAantepop$pc.scores[,1], PCAantepop$pc.scores[,2], Populationpop, Sexpop)
 
-plotPCApop <- ggplot(dataPCApop, aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop, shape = Sexpop)) +
+plotPCApop <- ggplot(dataPCApop, aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop)) +
   labs(x = "PC 1 (22.87%)", y = "PC 2 (8.93%)") +
   scale_color_manual(values = c("red", "blue", "darkgreen")) +
   geom_point(size = 8, alpha = 0.8) +
+    stat_ellipse(aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop)) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
 
@@ -647,7 +652,7 @@ PWpopres <- pairwise(fitpopres, groups = gdfresantepop$Population)
 PWpopres.sum <- summary(PWpopres, test.type = "dist", confidence = 0.95, stat.table = FALSE)
 PWpopres.sum
 
-#disparity differences on residual shape
+ #disparity differences on residual shape
 
 disparitypopsres <- morphol.disparity(fitpopres, groups = ~ Population, data = gdfresantepop, iter = 999)
 summary(disparitypopsres)

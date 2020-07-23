@@ -22,12 +22,12 @@ stuartii,south,CSIRO,CM16483,Female,Adult,NSW. 4km. S. of Goulburn on Rd. to Bra
 stuartii,south,CSIRO,CM933,Female,Subadult?,Barren Grounds N.S.W.,-34.6833,150.7333,595,G. Goodrich,15/02/1966,ok,ok,ok,ok,,o,P3 partially erupted.
 stuartii,south,CSIRO,CM952,Female,Adult,"Caudeaux River, Via Mount Kiera (Kembla) NSW",-34.4667,150.7833,32,K. Keith,19/06/1966,ok,ok,ok,ok,,o,
 stuartii,south,CSIRO,CM967,Male,Juvenile?,"Caudeaux River, Via Mount Kiera (Kembla) NSW",-34.4667,150.7833,32,K. Keith,20/01/1966,ok,ok,ok,ok,,o,P3 not erupted.
-stuartii,south,CSIRO,CM12785,Unknown,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,ok,,o,
-stuartii,south,CSIRO,CM12786,Unknown,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,ok,,o,
+stuartii,?,CSIRO,CM12785,Unknown,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,ok,,o,
+stuartii,?,CSIRO,CM12786,Unknown,Adult,NSW: Colo Vale,-34.4,150.4833,640,BSM.,NA,ok,ok,ok,ok,,o,
 stuartii,south,CSIRO,CM21,Male,Adult,NSW: Colo Vale,-34.4,150.4833,640,B. J. Marlow,NA,ok,ok,ok,ok,,o,
 stuartii,south,CSIRO,CM966,Male,Juvenile?,"Caudeaux River, Via Mount Kiera (Kembla) NSW",-34.4,150.8167,376,K. Keith,20/01/1966,ok,ok,ok,ok,,o,P3 not erupted.
 stuartii,south,CSIRO,CM16495,Male,Adult,"NSW: Golspie, NW of Crookwell",-34.3,149.6833,888,A. Gibson,1/01/1992,ok,ok,ok,ok,,o,Hab: Country town buildings
-stuartii,stuartii neotype,AM,M5294,Male,Adult,"Waterfall, Royal National Park, S of Sydney, N.S.W.",-34.133,151,149,NA,7/08/1932,ok,ok,ok,ok,,o,Neotype
+stuartii,south,AM,M5294,Male,Adult,"Waterfall, Royal National Park, S of Sydney, N.S.W.",-34.133,151,149,NA,7/08/1932,ok,ok,ok,ok,,o,Neotype
 stuartii,south,CSIRO,CM3642,Unknown,Subadult?,Georges River 3 miles S.S.E. Campbelltown NSW.,-34.1,150.8167,139,I. Mason,24/01/1970,ok,ok,ok,ok,,o,P3 partially erupted.
 stuartii,south,CSIRO,CM3643,Unknown,Subadult?,Georges River 3 miles S.S.E. Campbelltown NSW.,-34.1,150.8167,139,I. Mason,24/01/1970,ok,ok,ok,ok,,o,P3 partially erupted.
 stuartii,south,CSIRO,CM3644,Unknown,Juvenile?,Georges River 3 miles S.S.E. Campbelltown NSW.,-34.1,150.8167,139,I. Mason,24/01/1970,ok,ok,ok,ok,,o,P3 not erupted.
@@ -50,15 +50,15 @@ stuartii,?,CSIRO,CM3792,Female,Juvenile?,Redlands via Ebor N.S.W.,-30.3667,152.4
 stuartii,?,CSIRO,CM3793,Male,Juvenile?,"Redlands' Via Ebor, NSW",-30.3667,152.45,1275,K. Keith,20/01/1971,ok,ok,ok,ok,,o,Wet sclerophyll. P3 not erupted.
 stuartii,?,CSIRO,CM3795,Male,Subadult?,"Redlands' via Ebor, NSW",-30.3667,152.45,1275,K. Keith,21/01/1971,ok,ok,ok,ok,,o,Wet sclerophyll. P3 not fully erupted.
 stuartii,?,QM,J5030,Male,Adult,Dorrigo N. S. W.,-30.333,152.717,725,H. Burrell,10/03/1930,ok,ok,ok,ok,,o,
-stuartii,?,AM,M11665,Female,Adult,Billimbra State For. Nr. Grafton NSW,-29.217,152.417,844,NA,5/07/1980,ok,ok,ok,ok,north?,x,Left P3 partially erupted.
-stuartii,?,AM,M11666,Female,Adult,Billimbra State For. Nr. Grafton NSW,-29.217,152.417,844,NA,5/07/1980,ok,ok,ok,ok,north?,x,
-stuartii,?,QM,J7727,Female,Adult,4 mls NE Wallangarra 3500' SQ.,-28.9,151.983,1096,Mus Staff,24/05/1950,ok,ok,ok,ok,subtropicus? North?,x,
+stuartii,north,AM,M11665,Female,Adult,Billimbra State For. Nr. Grafton NSW,-29.217,152.417,844,NA,5/07/1980,ok,ok,ok,ok,north?,x,Left P3 partially erupted.
+stuartii,north,AM,M11666,Female,Adult,Billimbra State For. Nr. Grafton NSW,-29.217,152.417,844,NA,5/07/1980,ok,ok,ok,ok,north?,x,
+stuartii,north,QM,J7727,Female,Adult,4 mls NE Wallangarra 3500' SQ.,-28.9,151.983,1096,Mus Staff,24/05/1950,ok,ok,ok,ok,subtropicus? North?,x,
 stuartii,north,QM,JM15026,Unknown,Adult,Girraween N. P. SEQ,-28.892,152.433,462,Ian Gynther,17/04/2002,ok,ok,ok,ok,,o,
 stuartii,north,QM,JM15025,Unknown,Adult,Girraween N. P. SEQ,-28.862,152.032,287,Ian Gynther & Harry Hines,16/04/2002,ok,ok,ok,ok,,o,N73598
-subtropicus,?,AM,M24905,Female,Adult,Mt Nullum NSW,-28.833,153.433,114,NA,15/06/1990,ok,ok,ok,ok,subtropicus?,x,Location not clear
+subtropicus,north,AM,M24905,Female,Adult,Mt Nullum NSW,-28.833,153.433,114,NA,15/06/1990,ok,ok,ok,ok,subtropicus?,x,Location not clear
 stuartii,north,QM,JM19758,Female,Adult,"Lot 2, Mulvena Rd Larnook via Kyogle NSW",-28.668,153.101,240,Wes Hall,29/04/2012,ok,ok,ok,ok,,o,
-subtropicus,?,QM,MW1,Female,Adult,Lot 2 Mulvena Rd Lamook 33 km SW Mt Warning NSW,-28.668,153.101,240,Wes Hall,1/10/2011,ok,ok,ok,ok,subtropicus?,x,
-subtropicus,?,AM,M29961,Male,Adult,"Rummey Pk, Whian Whian State Forest NSW",-28.633,153.317,172,NA,16/08/1992,ok,ok,ok,ok,subtropicus?,x,
+subtropicus,north,QM,MW1,Female,Adult,Lot 2 Mulvena Rd Lamook 33 km SW Mt Warning NSW,-28.668,153.101,240,Wes Hall,1/10/2011,ok,ok,ok,ok,subtropicus?,x,
+subtropicus,north,AM,M29961,Male,Adult,"Rummey Pk, Whian Whian State Forest NSW",-28.633,153.317,172,NA,16/08/1992,ok,ok,ok,ok,?,x,
 stuartii,north,QM,JM21268,Male,Adult,Nightcap Nat. Park NSW.,-28.607,153.377,289,T. Y. Mutton,26/08/2012,ok,ok,ok,ok,,o,don�t know - thomas may or heather - but likely 28 36 16 S 153 22 44 E (based on thomas m thesis). #NC4
 stuartii,north,CSIRO,M24207,Male,Adult,"NSW: Gibbergunyah Road, Whian Whian State Forest, Tweed Valley",-28.5667,153.3356,524,P C Catling / R Burt,5/05/1995,ok,ok,ok,ok,,o,
 stuartii,north,CSIRO,M24203,Female,Subadult?,NSW: Gibbergunyah Bd Whian Whian SF Tweed Valley,-28.565,153.3364,524,P C Catling / R Burt,3/05/1995,ok,ok,ok,ok,,o,
@@ -92,10 +92,10 @@ subtropicus,?,QM,J17401,Male,Adult,Warwick district,-28.217,152.033,467,T. Kirkp
 stuartii,?,QM,J17402,Female,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,ok,subtropicus?,x,Q. M. Workshop 5143. J. M. no. 5.
 subtropicus,?,QM,J17403,Female,Adult,Warwick district SEQ,-28.217,152.033,467,T. Kirkpatrick,2/07/1969,ok,ok,ok,ok,subtropicus?,x,Q. M. Workshop 5144. Jm. No. 6
 stuartii,?,QM,J17406,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,ok,subtropicus?,x,Q. M. Workshop 5141. J. Martin no. 3.
-subtropicus,subtropicus holotype,QM,J17407,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,ok,subtropicus?,h,holotype specimen. 
+subtropicus,subtropicus,QM,J17407,Male,Adult,Warwick district,-28.217,152.033,467,T. H. Kirkpatrick,2/07/1969,ok,ok,ok,ok,subtropicus?,h,holotype specimen. 
 subtropicus,?,QM,JM1420,Male,Adult,Numinbah Arch Nerang Valley SEQ,-28.217,153.233,467,G.B. & S. R. Monteith,25/05/1975 - 13/10/1975,ok,ok,ok,ok,subtropicus?,x,Field # 36B/4
 subtropicus,?,QM,JM14415,Male,Adult,"Numinbah Valley, SEQ",-28.217,153.233,467,Unknown,5/07/2000,ok,ok,ok,ok,subtropicus?,x,
-subtropicus,subtropicus,QM,J20265,Male,Adult,Tallebudgera Ck Burleigh SEQ,-28.1,153.45,6,D. H. Fleay,6/07/1970,ok,ok,ok,ok,?,x,Q. M. Workshop no 5610
+subtropicus,?,QM,J20265,Male,Adult,Tallebudgera Ck Burleigh SEQ,-28.1,153.45,6,D. H. Fleay,6/07/1970,ok,ok,ok,ok,?,x,Q. M. Workshop no 5610
 stuartii,?,QM,MWA1,Male,Adult,Main Range National Park,-28.083,152.417,758,Moss Well,NA,ok,ok,ok,ok,north?,x,
 stuartii,?,QM,MWA2,Female,Unknown,Main Range National Park,-28.083,152.417,758,Moss Well,_,ok,ok,ok,ok,north?,x,
 stuartii,?,QM,CG1,Male,Adult,"Main Range NP office, Cunningham's Gap, SEQ, 28 03 44 S 152 22 02 E",-28.062,152.367,674,R. Hobson,8/05/2012,ok,ok,ok,ok,north?,x,N19464.
@@ -104,13 +104,13 @@ stuartii,?,QM,JM21357,Male,Adult,"Main Range Nat. Park Goomburra, Qld. SEQ. Lat 
 stuartii,north,QM,MRG3,Male,Adult,"Main Range NP Goomburra 27�58'50""S 152�20'49""E",-27.981,152.347,710,T. Y. Mutton,27/08/2012,ok,ok,ok,ok,,o,710 m Alt.
 stuartii,north,QM,MRG4,Male,Adult,"Main Range NP Goomburra 27�58'50""S 152�20'49""E",-27.981,152.347,710,T. Y. Mutton,27/08/2012,ok,ok,ok,ok,,o,710 m Alt.
 subtropicus,?,QM,JM14452,Unknown,Adult,"Casswell Ck, Wonglepong, SEQ",-27.967,153.167,411,J. Everleigh,11/03/2000,ok,ok,ok,ok,subtropicus?,x,
-stuartii,?,QM,J3716,Male,Adult,Mt Tambourine SEQ,-27.917,153.167,517,T. Burston,6/08/1922,ok,ok,ok,ok,subtropicus? Exclude?,x,Skin in old collection.
+stuartii,north,QM,J3716,Male,Adult,Mt Tambourine SEQ,-27.917,153.167,517,T. Burston,6/08/1922,ok,ok,ok,ok,subtropicus? Exclude?,x,Skin in old collection.
 subtropicus,subtropicus,QM,JM14447,Male,Adult,Mt Nebo 27�23'S 152�47'E (calc),-27.383,152.783,457,Whitaker,00/07/2000,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,JM14448,Male,Adult,Mt Nebo 27�23'S 152�47'E (calc),-27.383,152.783,457,Whitaker,00/07/2000,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,JM19746,Male,Adult,"Harland Road, off Mt Glorious Rd, SEQ",-27.349,152.779,423,Baker & Mutton,1/09/2011,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,JM19750,Female,Adult,"Harland Road, off Mt Glorious Rd",-27.346,152.773,423,Baker & Mutton,1/09/2011,ok,ok,ok,ok,,o,
 stuartii,?,CSIRO,CM674,Male,Subadult?,Mount Glorious S.E Qld,-27.3333,152.7667,572,R. Rick,1/03/1964,ok,ok,ok,ok,exclude?,x,P3 partially erupted.
-stuartii,?,CSIRO,CM675,Female,Subadult?,Mount Glorious S.E Qld,-27.3333,152.7667,572,R. Rick,1/03/1964,ok,ok,ok,ok,exclude?,x,P3 partially erupted.
+stuartii,?,CSIRO,CM675,Female,Subadult?,Mount Glorious S.E Qld,-27.3333,152.7667,572,R. Rick,1/03/1964,ok,ok,ok,ok,exclude? Sub?,x,P3 partially erupted.
 subtropicus,subtropicus,QM,J10471,Female,Adult,Mt Glorious,-27.333,152.767,572,E. Williams,13/03/1960,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,J11098,Female,Adult,Mt Glorious SEQ,-27.333,152.767,572,D. Bryce,14/11/1961,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,J11443,Male,Adult,Mt Glorious SEQ,-27.333,152.767,572,C. Bryce,5/03/1962,ok,ok,ok,ok,,o,Workshop No. 2362
@@ -166,7 +166,7 @@ subtropicus,subtropicus,QM,JM97,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572
 subtropicus,subtropicus,QM,JM99,Male,Adult,Pres. Mt Glorious,-27.333,152.767,572,R. Braithwaite,25/09/1971,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,JM19751,Male,Adult,"Mt Glorious Rd, Mt Glorious SEQ",-27.329,152.758,572,K. Hillier,15/08/2007,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,JM19749,Male,Adult,"End of Cedar Ck Rd, Samford",-27.32,152.783,572,Baker & Mutton,1/09/2011,ok,ok,ok,ok,,o,
-stuartii,?,QM,JM1601,Female,Adult,Sunday Creek Q.,-26.733,152.5,624,D. Grossman,18/11/1973,ok,ok,ok,ok,subtropicus?,x,H193. Lactating.
+stuartii,subtropicus,QM,JM1601,Female,Adult,Sunday Creek Q.,-26.733,152.5,624,D. Grossman,18/11/1973,ok,ok,ok,ok,subtropicus?,x,H193. Lactating.
 subtropicus,subtropicus,QM,CDT8,Male,Adult,"Conondale NP, SEQ 26�40'38""S 152�34'22""E, 726m el.",-26.677,152.573,706,T. Mutton,21/05/2014,ok,ok,ok,ok,,o,
 subtropicus,subtropicus,QM,JM1598,Male,Adult,Kondalilla Nat. Park Q.,-26.675,152.875,244,D. Grossman / K. McDonald,28/08/1974,ok,ok,ok,ok,,o,H246
 subtropicus,subtropicus,QM,JM1597,Male,Adult,Kondalilla Nat. Park Q.,-26.667,152.867,295,D. Grossman,29/05/1975,ok,ok,ok,ok,,o,H277
