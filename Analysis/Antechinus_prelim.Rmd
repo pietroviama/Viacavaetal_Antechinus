@@ -147,9 +147,9 @@ plot(plotPCA)
 
 #Sex analysis
 
-A_reordersex <- A_reorder[,,-which(antechinusdata$Sex=="Unknown")]
+A_reordersex <- A_reorder[,,-c(which(antechinusdata$Sex=="Unknown"), which(antechinusdata$Population=="?"))]
 
-antechinusdatasex <- antechinusdata[-which(antechinusdata$Sex=="Unknown"),]
+antechinusdatasex <- antechinusdata[-c(which(antechinusdata$Sex=="Unknown"), which(antechinusdata$Population=="?")),]
 antechinusdatasex <- droplevels(antechinusdatasex)
 
 
@@ -167,7 +167,7 @@ Sex <- gdfantesex$Sex
 dataPCAsex <- data.frame(PCAantesex$pc.scores[,1], PCAantesex$pc.scores[,2], Sex)
 
 plotPCAsex <- ggplot(dataPCAsex, aes(x=PCAantesex.pc.scores...1., y=PCAantesex.pc.scores...2., colour = Sex, shape = Sex)) +
-  labs(x = "PC 1 (19.9%)", y = "PC 2 (8.4%)") +
+  labs(x = "PC 1 (21.84%)", y = "PC 2 (8.67%)") +
   scale_color_manual(values = c("yellow4", "purple4")) +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
@@ -181,6 +181,11 @@ plot(plotPCAsex)
 fit.shapesex <- procD.lm(coords~Sex, data = gdfantesex, effect.type = "F")
 summary(fit.shapesex)
 #yes
+
+#Are Sexes different in shape, adjusting for population?
+
+fit.shapesexadjpop <- procD.lm(coords~Population+Sex, data = gdfantesex, effect.type = "F")
+summary(fit.shapesexadjpop)
 
 #Is there a common allometry or are there unique allometries across sexes? 
 
@@ -216,9 +221,6 @@ Sexbplot <- ggplot(df.antesex,
   theme(legend.position = "none", axis.text.x = element_text(size = 25), axis.text.y = element_text(size = 15), axis.title.y = element_text(size=25))
 
 plot(Sexbplot)
-
-
-
 
 
 #exclude dubious population identities
@@ -601,8 +603,77 @@ anova(lmsizeelevmain)
 summary(lmsizeelevmain)
 
 
+#Here we extract only males and only females to analyze populations by sex
+
+
+A_reorderpopmale <- A_reorderpop[,,-c(which(antechinusdatapop$Sex=="Unknown"), which(antechinusdatapop$Sex=="Female"))]
+
+A_reorderpopfemale <- A_reorderpop[,,-c(which(antechinusdatapop$Sex=="Unknown"), which(antechinusdatapop$Sex=="Male"))]
+
+
+antechinusdatapopmale <- antechinusdatapop[-c(which(antechinusdatapop$Sex=="Unknown"), which(antechinusdatapop$Sex=="Female")),]
+antechinusdatapopmale <- droplevels(antechinusdatapopmale)
+
+antechinusdatapopfemale <- antechinusdatapop[-c(which(antechinusdatapop$Sex=="Unknown"), which(antechinusdatapop$Sex=="Male")),]
+antechinusdatapopfemale <- droplevels(antechinusdatapopfemale)
+
+
+gpamale<-gpagen(A_reorderpopmale, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
+                   max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+
+gpafemale<-gpagen(A_reorderpopfemale, curves = NULL, surfaces = NULL, PrinAxes = TRUE,
+                   max.iter = NULL, ProcD = TRUE, Proj = TRUE, print.progress = TRUE)
+
+
+
+#frame data for geomorph (MALES)
+
+gdfantemale <- geomorph.data.frame(coords = gpamale$coords, Csize = gpamale$Csize, Population = antechinusdatapopmale$Population, ID = antechinusdatapopmale$ID, Sex = antechinusdatapopmale$Sex, Latitude = antechinusdatapopmale$Latitude, Longitude = antechinusdatapopmale$Longitude) 
+
+gdfantefemale <- geomorph.data.frame(coords = gpafemale$coords, Csize = gpafemale$Csize, Population = antechinusdatapopfemale$Population, ID = antechinusdatapopfemale$ID, Sex = antechinusdatapopfemale$Sex, Latitude = antechinusdatapopfemale$Latitude, Longitude = antechinusdatapopfemale$Longitude) 
+
+PCAantemale <- plotTangentSpace(gdfantemale$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantemale$Population, legend = gdfantemale$Population)
+
+summary(PCAantemale)
+
+
+
+Populationmale <- gdfantemale$Population
+dataPCAmale <- data.frame(PCAantemale$pc.scores[,1], PCAantemale$pc.scores[,2], Populationmale)
+
+plotPCAmale <- ggplot(dataPCAmale, aes(x=PCAantemale.pc.scores...1., y=PCAantemale.pc.scores...2., colour = Populationmale)) +
+  labs(x = "PC 1 (19.56%)", y = "PC 2 (9.56%)") +
+  scale_color_manual(values = c("red", "blue", "darkgreen")) +
+  geom_point(size = 8, alpha = 0.8) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
+
+plot(plotPCAmale)
+
+#frame data for geomorph (FEMALES)
+
+gdfantefemale <- geomorph.data.frame(coords = gpafemale$coords, Csize = gpafemale$Csize, Population = antechinusdatapopfemale$Population, ID = antechinusdatapopfemale$ID, Sex = antechinusdatapopfemale$Sex, Latitude = antechinusdatapopfemale$Latitude, Longitude = antechinusdatapopfemale$Longitude) 
+
+PCAantefemale <- plotTangentSpace(gdfantefemale$coords, warpgrids = FALSE, mesh = FALSE, groups = gdfantefemale$Population, legend = gdfantefemale$Population)
+
+summary(PCAantefemale)
+
+
+
+Populationfemale <- gdfantefemale$Population
+dataPCAfemale <- data.frame(PCAantefemale$pc.scores[,1], PCAantefemale$pc.scores[,2], Populationfemale)
+
+plotPCAfemale <- ggplot(dataPCAfemale, aes(x=PCAantefemale.pc.scores...1., y=PCAantefemale.pc.scores...2., colour = Populationfemale)) +
+  labs(x = "PC 1 (23.69%)", y = "PC 2 (8.04%)") +
+  scale_color_manual(values = c("red", "blue", "darkgreen")) +
+  geom_point(size = 8, alpha = 0.8) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.text = element_text(size = 25), legend.title = element_text(size = 25), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text = element_text(size = 20), legend.justification = "center")
+
+plot(plotPCAfemale)
 
 ```
+
 ``` {r residual shape analyses, include = TRUE}
 
 #calculate residual shape
