@@ -187,6 +187,11 @@ summary(fit.shapesex)
 fit.shapesexadjpop <- procD.lm(coords~Population+Sex, data = gdfantesex, effect.type = "F")
 summary(fit.shapesexadjpop)
 
+#Are Sexes intrinsically different in shape by population?
+
+fit.shapesexbypop <- procD.lm(coords~Population*Sex, data = gdfantesex, effect.type = "F")
+summary(fit.shapesexbypop)
+
 #Is there a common allometry or are there unique allometries across sexes? 
 
 fit.sex.uni <- procD.lm(f1 = coords~Csize*Sex, data = gdfantesex, effect.type = "F")
