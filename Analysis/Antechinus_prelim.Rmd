@@ -465,7 +465,7 @@ warpmovie3d(tps3dsouthsub, tps3dsubsouth, n=15, col = "grey", palindrome = TRUE,
 
 plotRefToTarget(mshapenorth, mshapesubtropicus, method="vector", gridPars=gridPar(pt.size=0.5))
 plotRefToTarget(mshapesouth, mshapesubtropicus, method="vector", gridPars=gridPar(pt.size=0.5))
-plotRefToTarget(mshapenorth, mshapesouth, method="vector", gridPars=gridPar(pt.size=0.5))
+plotRefToTarget(mshapesouth, mshapenorth, method="vector", gridPars=gridPar(pt.size=0.5))
 
 
 mshapesouthnorth <- coordinates.difference(mshapesouth, mshapenorth, type = "spherical")
