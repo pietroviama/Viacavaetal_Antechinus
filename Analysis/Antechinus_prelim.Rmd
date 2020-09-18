@@ -36,11 +36,11 @@ library(landvR)
 
 ```{r load data}
 #Import 3D coordinates from all specimens
-coords.3D <- t (read.csv("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Antechinus_LMcoords.csv", header = TRUE, row.names = 1))
+coords.3D <- t (read.csv("C:/Users/pietro/Desktop/Pietro/Projects/Viacavaetal_Antechinus/Data/Antechinus_semiLMcoords.csv", header = TRUE, row.names = 1))
 dim(coords.3D)
 
 #Convert 2D metadata into a 3D array
-A <- arrayspecs(coords.3D, 82, 3)
+A <- arrayspecs(coords.3D, 412, 3)
 dim(A)
 Ahead <- head(dimnames(A))[3]
 
@@ -120,7 +120,7 @@ summary(PCAante)
 cols<-brewer.pal(n=6,name="Set1")
 cols_dat<-cols[gdfante$Population]
 
-PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (19.68%)", ylab="Principal Component 2 (8.55%)")
+PCAanteplot <- plot(PCAante$pc.scores[,1], PCAante$pc.scores[,2], col = cols_dat, pch = c(16:18)[factor(gdfante$Sex)], cex = 2, asp = T, xlab="Principal Component 1 (18.52%)", ylab="Principal Component 2 (9.96%)")
 text(PCAante$pc.scores[,1], PCAante$pc.scores[,2], labels=gdfante$ID, pos=4)
 #need to correct legend
 #legend(0.04, 0.02, legend=paste(rep(c("Female","Male","unknown"), times=2), rep(c("subtropicus","stuartii south", "stuartii north"), each=2), sep=","), col = rep(cols_dat, times=2), pch=rep(c(16:17), each=2), bty="n",ncol=2,cex=1.5,pt.cex=1.5, x.intersp = 0.2, text.width = 0.01)
@@ -135,7 +135,7 @@ Latitude <- gdfante$Latitude
 dataPCA <- data.frame(PCAante$pc.scores[,1], PCAante$pc.scores[,2], Population, Sex, ID, Latitude)
 
 plotPCA <- ggplot(dataPCA, aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., colour = Population, shape = Sex)) +
-  labs(x = "PC 1 (19.68%)", y = "PC 2 (8.55%)") +
+  labs(x = "PC 1 (18.52%)", y = "PC 2 (9.96%)") +
   geom_text(data=dataPCA, 
             aes(x=PCAante.pc.scores...1., y=PCAante.pc.scores...2., label = Latitude), position = position_jitter(width = 0.002, height = 0.002)) +
   scale_color_manual(values = c("grey", "red", "blue", "darkgreen", "orange")) +
@@ -167,7 +167,7 @@ Sex <- gdfantesex$Sex
 dataPCAsex <- data.frame(PCAantesex$pc.scores[,1], PCAantesex$pc.scores[,2], Sex)
 
 plotPCAsex <- ggplot(dataPCAsex, aes(x=PCAantesex.pc.scores...1., y=PCAantesex.pc.scores...2., colour = Sex, shape = Sex)) +
-  labs(x = "PC 1 (21.84%)", y = "PC 2 (8.67%)") +
+  labs(x = "PC 1 (19.06%)", y = "PC 2 (11.05%)") +
   scale_color_manual(values = c("yellow4", "purple4")) +
   geom_point(size = 8, alpha = 0.8) +
   theme_bw() +
@@ -288,7 +288,7 @@ Sexpop <- gdfantepop$Sex
 dataPCApop <- data.frame(PCAantepop$pc.scores[,1], PCAantepop$pc.scores[,2], Populationpop, Sexpop)
 
 plotPCApop <- ggplot(dataPCApop, aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop)) +
-  labs(x = "PC 1 (22.87%)", y = "PC 2 (8.93%)") +
+  labs(x = "PC 1 (19.43%)", y = "PC 2 (10.71%)") +
   scale_color_manual(values = c("red", "blue", "darkgreen")) +
   geom_point(size = 8, alpha = 0.8) +
     stat_ellipse(aes(x=PCAantepop.pc.scores...1., y=PCAantepop.pc.scores...2., colour = Populationpop)) +
@@ -483,7 +483,7 @@ procrustes.var.plot(mshapesouth, mshapesubtropicus, col = list(grDevices::heat.c
 
 mshapePC1minmax<-coordinates.difference(PCAantepop$pc.shapes$PC1min,PCAantepop$pc.shapes$PC1max, type = "spherical")
 
-procrustes.var.plot(PCAantepop$pc.shapes$PC1min, PCAantepop$pc.shapes$PC1max, col = list(grDevices::heat.colors, "black"), col.val = mshapePC1minmax[[1]][,"radius"], col.range = c(0, 0.015), pt.size = 0.5)
+procrustes.var.plot(PCAantepop$pc.shapes$PC1min, PCAantepop$pc.shapes$PC1max, col = list(grDevices::heat.colors, "black"), col.val = mshapePC1minmax[[1]][,"radius"], col.range = c(0, 0.015), pt.size = 0.5, magnitude = 1)
 
 #warp PC1min vs PC1max
 
