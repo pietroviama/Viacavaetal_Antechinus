@@ -929,18 +929,7 @@ dfintlm <- data.frame(inf=(interlmkdist(A_reorder,c(79,81)) + interlmkdist(A_reo
                       , total=interlmkdist(A_reorder,c(1,4)), Population=antechinusdata$Population, ID=antechinusdata$ID)
 
 
-plottern <- ggtern(data = dfintlm, aes(x=inf, y=mapf, z=intp, colour = Population))+
-  theme_bw() +
-  geom_point(size = 5, alpha = 0.8) +
-  scale_color_manual(values = c("grey", "red", "blue", "darkgreen", "orange"))
-   #scale_T_continuous(limits = c(2,8))
 
- #theme_showarrows() +
-  #scale_T_continuous(breaks=unique(dfintlm$inf),labels=labFnc(dfintlm$inf))+ 
-  #scale_L_continuous(breaks=unique(dfintlm$mapf),labels=labFnc(dfintlm$mapf))+ 
-  #scale_R_continuous(breaks=unique(dfintlm$intp),labels=labFnc(dfintlm$intp))
-
-plottern
 
 plotdist1 <- ggplot(dfintlm, aes(x=inf, y=mapf, colour = Population)) +
   labs(x = "inf", y = "mapf") +
