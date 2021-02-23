@@ -593,12 +593,6 @@ RsquareAdj(Etemp)
 ```
 
 
-
-#1) find an appropriate skull length measurement (double check accuracy in meshlab but values should be similar)
-2) identify the landmkars that our analysis suggests as distinguishing the populations best
-3) ANOVA of raw or relative to skull lenght values (probably both just to check)
-4) Find potential multiple distcriminant values - as many as seem reasonable. Consider ternary plots
-
 ```{r physical distances in ternary plot of boxplot}
 
 #box plots of diagnostic linear distance characters (Figure 3)
